@@ -494,20 +494,21 @@
         <div class="section-header scroll-animate">
           <span class="section-tag">Compete & Climb</span>
           <h2 class="section-title">
-            See Where You <span class="text-gradient">Stack Up</span>
+            Leaderboards at <span class="text-gradient">Every Level</span>
           </h2>
         </div>
 
         <div class="leaderboard-content">
           <div class="leaderboard-text scroll-animate">
             <p class="leaderboard-lead">
-              Rally isn't just about tracking — it's about <strong>winning</strong>.
-              Compete with friends, climb the ranks, and prove you're the one everyone can count on.
+              Rally isn't just about tracking — it's about <strong>competing</strong>.
+              See where you rank among friends, in your city, and across the globe.
             </p>
 
-            <div class="leaderboard-highlights">
-              <div class="highlight-item">
-                <div class="highlight-icon">
+            <!-- Scope levels - matching app UI -->
+            <div class="leaderboard-scopes">
+              <div class="scope-card">
+                <div class="scope-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>
@@ -515,37 +516,55 @@
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
                 </div>
-                <div class="highlight-text">
-                  <h4>Squad Rankings</h4>
-                  <p>Who's the MVP of your friend group?</p>
-                </div>
+                <h4>Friends</h4>
+                <p>Compete within your squads</p>
               </div>
 
-              <div class="highlight-item">
-                <div class="highlight-icon">
+              <div class="scope-card">
+                <div class="scope-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <h4>City</h4>
+                <p>Rep your city. Own your block.</p>
+              </div>
+
+              <div class="scope-card scope-card-highlight">
+                <div class="scope-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                   </svg>
                 </div>
-                <div class="highlight-text">
-                  <h4>City & Global</h4>
-                  <p>Flex on your city. Compete worldwide.</p>
-                </div>
+                <h4>Global</h4>
+                <p>Compete worldwide</p>
               </div>
+            </div>
 
-              <div class="highlight-item">
-                <div class="highlight-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                    <path d="M2 17l10 5 10-5"></path>
-                    <path d="M2 12l10 5 10-5"></path>
-                  </svg>
-                </div>
-                <div class="highlight-text">
-                  <h4>Unlock Perks</h4>
-                  <p>High scores will be rewarded. Start building now.</p>
+            <!-- Mode explanation -->
+            <div class="leaderboard-modes">
+              <div class="mode-info">
+                <span class="mode-label">Two ways to compete:</span>
+                <div class="mode-pills">
+                  <span class="mode-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Squads
+                  </span>
+                  <span class="mode-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    People
+                  </span>
                 </div>
               </div>
             </div>
@@ -553,52 +572,72 @@
 
           <div class="leaderboard-visual scroll-animate delay-1">
             <div class="leaderboard-card floating-card">
-              <div class="leaderboard-header">
-                <span class="leaderboard-title">Squad Leaderboard</span>
-                <span class="leaderboard-badge">This Month</span>
+              <!-- Tab pills matching app -->
+              <div class="leaderboard-tabs">
+                <span class="tab-pill">Friends</span>
+                <span class="tab-pill tab-pill-active">NYC</span>
+                <span class="tab-pill">Global</span>
               </div>
 
-              <div class="leaderboard-podium">
-                <div class="podium-item podium-2">
-                  <div class="podium-avatar">M</div>
-                  <div class="podium-rank">2</div>
-                  <span class="podium-name">Maya</span>
-                  <span class="podium-score">94%</span>
-                </div>
-                <div class="podium-item podium-1">
-                  <div class="podium-crown">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                    </svg>
-                  </div>
-                  <div class="podium-avatar podium-avatar-gold">Y</div>
-                  <div class="podium-rank">1</div>
-                  <span class="podium-name">You</span>
-                  <span class="podium-score podium-score-gold">97%</span>
-                </div>
-                <div class="podium-item podium-3">
-                  <div class="podium-avatar">J</div>
-                  <div class="podium-rank">3</div>
-                  <span class="podium-name">Jake</span>
-                  <span class="podium-score">91%</span>
-                </div>
+              <!-- Mode toggle matching app -->
+              <div class="leaderboard-mode-toggle">
+                <span class="toggle-option toggle-option-active">Squads</span>
+                <span class="toggle-option">People</span>
               </div>
 
+              <!-- Personal rank banner -->
+              <div class="personal-rank-banner">
+                <span class="rank-highlight">#4</span>
+                <span class="rank-separator">•</span>
+                <span>87% score</span>
+                <span class="rank-separator">•</span>
+                <span>Top 12%</span>
+                <span class="rank-separator">•</span>
+                <span class="rank-movement rank-up">↑ 2</span>
+              </div>
+
+              <!-- Leaderboard rows -->
               <div class="leaderboard-list">
-                <div class="leaderboard-row">
-                  <span class="row-rank">4</span>
-                  <span class="row-name">Sarah</span>
-                  <span class="row-score">87%</span>
+                <div class="leaderboard-row leaderboard-row-top">
+                  <span class="row-rank row-rank-gold">1</span>
+                  <div class="row-avatar">T</div>
+                  <div class="row-info">
+                    <span class="row-name">The Reliable Ones</span>
+                    <span class="row-meta">8 members</span>
+                  </div>
+                  <span class="row-score-badge">97%</span>
                 </div>
                 <div class="leaderboard-row">
-                  <span class="row-rank">5</span>
-                  <span class="row-name">Mike</span>
-                  <span class="row-score">82%</span>
+                  <span class="row-rank row-rank-silver">2</span>
+                  <div class="row-avatar">S</div>
+                  <div class="row-info">
+                    <span class="row-name">Squad Goals</span>
+                    <span class="row-meta">5 members</span>
+                  </div>
+                  <span class="row-score-badge">94%</span>
+                </div>
+                <div class="leaderboard-row">
+                  <span class="row-rank row-rank-bronze">3</span>
+                  <div class="row-avatar">N</div>
+                  <div class="row-info">
+                    <span class="row-name">No Flakes Allowed</span>
+                    <span class="row-meta">6 members</span>
+                  </div>
+                  <span class="row-score-badge">91%</span>
+                </div>
+                <div class="leaderboard-row leaderboard-row-you">
+                  <span class="row-rank">4</span>
+                  <div class="row-avatar row-avatar-you">Y</div>
+                  <div class="row-info">
+                    <span class="row-name">Your Squad</span>
+                    <span class="row-meta">4 members</span>
+                  </div>
+                  <span class="row-score-badge">87%</span>
                 </div>
               </div>
 
               <div class="leaderboard-footer">
-                <span class="footer-note">Top performers unlock exclusive perks</span>
+                <span class="footer-note">🏆 Top squads unlock exclusive perks</span>
               </div>
             </div>
           </div>
