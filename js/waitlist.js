@@ -101,33 +101,7 @@
   // ============================================
 
   const updateWaitlistCount = async () => {
-    const countEl = document.getElementById('waitlist-count');
-    const heroCountEl = document.getElementById('hero-waitlist-count');
-
-    try {
-      if (!supabase) {
-        // Show placeholder count if Supabase not configured
-        if (countEl) countEl.textContent = '50';
-        if (heroCountEl) heroCountEl.textContent = '50';
-        return;
-      }
-
-      const { count, error } = await supabase
-        .from('waitlist')
-        .select('*', { count: 'exact', head: true });
-
-      if (!error && count !== null) {
-        // Round down to nearest 10 for social proof
-        const displayCount = Math.floor(count / 10) * 10;
-        const finalCount = displayCount > 0 ? displayCount : count;
-        if (countEl) countEl.textContent = finalCount;
-        if (heroCountEl) heroCountEl.textContent = finalCount;
-      }
-    } catch (error) {
-      console.error('Error fetching waitlist count:', error);
-      if (countEl) countEl.textContent = '50';
-      if (heroCountEl) heroCountEl.textContent = '50';
-    }
+    // No longer displaying count on the page - removed fake numbers
   };
 
   // ============================================
