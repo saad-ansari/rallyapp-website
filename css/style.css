@@ -535,9 +535,17 @@ section {
   line-height: 1.7;
 }
 
-/* Social Proof */
+/* Early Access Value Prop */
 .hero-social-proof {
-  font-size: var(--text-body-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-primary-muted);
+  border: 1px solid var(--color-primary-soft);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-caption);
+  font-weight: 500;
   color: var(--color-text-secondary);
   margin-bottom: var(--space-8);
 }
@@ -545,6 +553,14 @@ section {
 .social-proof-count {
   font-weight: 700;
   color: var(--color-primary);
+}
+
+@media (max-width: 600px) {
+  .hero-social-proof {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-1);
+  }
 }
 
 .hero-cta {
@@ -1634,8 +1650,9 @@ section {
 .waitlist-note {
   font-size: var(--text-caption);
   color: var(--color-text-tertiary);
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
   text-align: center;
+  letter-spacing: 0.01em;
 }
 
 .waitlist-message {
