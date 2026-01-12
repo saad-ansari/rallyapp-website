@@ -840,6 +840,84 @@ section {
   font-weight: 700;
 }
 
+/* Score Rule Cards - Show up / Flake */
+.score-rule-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.rule-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rule-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.rule-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.rule-card-positive .rule-icon {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.rule-card-negative .rule-icon {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.rule-action {
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.rule-result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.rule-result svg {
+  transform: rotate(-90deg);
+}
+
+.rule-result-negative {
+  color: var(--color-danger);
+}
+
+.rule-result-negative svg {
+  transform: rotate(90deg);
+}
+
+@media (max-width: 500px) {
+  .score-rule-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .solution-benefits {
   display: flex;
   flex-direction: column;
