@@ -537,30 +537,15 @@ section {
 
 /* Early Access Value Prop */
 .hero-social-proof {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  background: var(--color-primary-muted);
-  border: 1px solid var(--color-primary-soft);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-caption);
+  font-size: var(--text-body-sm);
   font-weight: 500;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-8);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
 }
 
 .social-proof-count {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-primary);
-}
-
-@media (max-width: 600px) {
-  .hero-social-proof {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space-1);
-  }
 }
 
 .hero-cta {
