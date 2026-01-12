@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rally Logo Export - 1024x1024</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      padding: 40px;
+      gap: 40px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+    }
+
+    .instructions {
+      max-width: 600px;
+      text-align: center;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .logo-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .logo-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-label {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* The actual logo - 1024x1024 - Rally Deep Orange */
+    #logo-1024 {
+      width: 1024px;
+      height: 1024px;
+      background: #EA580C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0; /* Square corners for export */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    #logo-1024 .letter {
+      font-family: 'Inter', sans-serif;
+      font-size: 512px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    /* Preview sizes */
+    .preview-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .preview {
+      background: #EA580C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .preview-180 {
+      width: 180px;
+      height: 180px;
+      border-radius: 40px;
+    }
+
+    .preview-120 {
+      width: 120px;
+      height: 120px;
+      border-radius: 27px;
+    }
+
+    .preview-60 {
+      width: 60px;
+      height: 60px;
+      border-radius: 13px;
+    }
+
+    .preview .letter {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .preview-180 .letter { font-size: 90px; }
+    .preview-120 .letter { font-size: 60px; }
+    .preview-60 .letter { font-size: 30px; }
+
+    .download-tip {
+      background: #fff;
+      padding: 20px 32px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      max-width: 600px;
+    }
+
+    .download-tip h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .download-tip ol {
+      padding-left: 20px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .download-tip code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rally Logo Export</h1>
+
+  <p class="instructions">
+    Below is the 1024x1024 logo for app icons. Use your browser's screenshot tool or DevTools to export.
+  </p>
+
+  <div class="download-tip">
+    <h3>How to export:</h3>
+    <ol>
+      <li>Right-click on the large logo below</li>
+      <li>Select <code>Inspect</code> (or press F12)</li>
+      <li>Right-click the element in DevTools</li>
+      <li>Choose <code>Capture node screenshot</code></li>
+      <li>This saves a perfect 1024x1024 PNG!</li>
+    </ol>
+  </div>
+
+  <h2 style="margin-top: 20px; color: #666; font-size: 18px;">Compare Color Options (180x180)</h2>
+
+  <div class="preview-row">
+    <div class="logo-box">
+      <div class="preview preview-180" style="background: #FF6B35;">
+        <span class="letter">R</span>
+      </div>
+      <span class="logo-label">#FF6B35</span>
+      <span class="logo-label" style="color: #999; font-size: 12px;">Light Coral</span>
+    </div>
+    <div class="logo-box">
+      <div class="preview preview-180" style="background: #F97316;">
+        <span class="letter">R</span>
+      </div>
+      <span class="logo-label">#F97316</span>
+      <span class="logo-label" style="color: #999; font-size: 12px;">Bright Orange</span>
+    </div>
+    <div class="logo-box">
+      <div class="preview preview-180" style="background: #EA580C; box-shadow: 0 0 0 3px #EA580C33, 0 2px 10px rgba(0,0,0,0.1);">
+        <span class="letter">R</span>
+      </div>
+      <span class="logo-label" style="font-weight: 700;">#EA580C</span>
+      <span class="logo-label" style="color: #EA580C; font-size: 12px; font-weight: 600;">Brand Primary (selected)</span>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 40px; color: #666; font-size: 18px;">Full size (1024x1024) - Rally Deep Orange</h2>
+
+  <!-- The main exportable logo -->
+  <div id="logo-1024">
+    <span class="letter">R</span>
+  </div>
+
+</body>
+</html>

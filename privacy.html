@@ -10,21 +10,24 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <a href="/" class="logo">Rally</a>
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Orbs Background -->
+  <div class="orbs-container" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Floating Logo -->
+  <a href="/" class="floating-logo" aria-label="Rally">R</a>
 
   <!-- Privacy Policy Content -->
   <main class="legal-page">
@@ -71,6 +74,7 @@
         <li>Provide, maintain, and improve the Rally service</li>
         <li>Create and manage your account</li>
         <li>Enable you to create and join squads and events</li>
+        <li>Calculate and display Reliability Scores (see Section 2.1)</li>
         <li>Track attendance and display leaderboards</li>
         <li>Send you notifications about events and squad activity</li>
         <li>Respond to your comments, questions, and support requests</li>
@@ -78,6 +82,27 @@
         <li>Detect, prevent, and address technical issues and security threats</li>
         <li>Comply with legal obligations</li>
       </ul>
+
+      <h3>2.1 How Reliability Scores Work</h3>
+      <p>
+        Reliability Scores are calculated using the following data points from your activity within Rally:
+      </p>
+      <ul>
+        <li><strong>RSVPs:</strong> Events you respond "Yes" to within your squads</li>
+        <li><strong>Attendance:</strong> Whether you checked in or were marked as attending events you RSVP'd to</li>
+        <li><strong>Check-ins:</strong> Location-verified check-ins at event venues</li>
+        <li><strong>Cancellations:</strong> When and how often you cancel after RSVP'ing</li>
+      </ul>
+      <p>Your Reliability Score is visible to:</p>
+      <ul>
+        <li>Other members of squads you belong to</li>
+        <li>Hosts of events you RSVP to</li>
+        <li>You (in your profile and settings)</li>
+      </ul>
+      <p>
+        Your score is NOT publicly visible outside of your squads. You may request a recalculation of your
+        score or an explanation of how it was calculated by contacting <a href="mailto:support@rallyapp.me">support@rallyapp.me</a>.
+      </p>
 
       <h2>3. Information Sharing</h2>
       <p>We may share your information in the following circumstances:</p>
@@ -112,9 +137,31 @@
       <h2>6. Data Security</h2>
       <p>
         We implement appropriate technical and organizational measures to protect your personal information
-        against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission
-        over the Internet or electronic storage is 100% secure.
+        against unauthorized access, alteration, disclosure, or destruction. These measures include:
       </p>
+      <ul>
+        <li>Encryption of data in transit using TLS/SSL</li>
+        <li>Encryption of sensitive data at rest</li>
+        <li>Regular security assessments and updates</li>
+        <li>Access controls limiting who can view personal data</li>
+        <li>Secure authentication systems</li>
+      </ul>
+      <p>
+        However, no method of transmission over the Internet or electronic storage is 100% secure.
+      </p>
+
+      <h3>6.1 Data Breach Notification</h3>
+      <p>
+        In the event of a data breach that affects your personal information, we will:
+      </p>
+      <ul>
+        <li>Notify affected users within 72 hours of becoming aware of the breach</li>
+        <li>Provide notification via email and, where possible, in-app notification</li>
+        <li>Describe the nature of the breach and types of data potentially affected</li>
+        <li>Explain the steps we are taking to address the breach</li>
+        <li>Provide recommendations for protecting yourself</li>
+        <li>Report to relevant regulatory authorities as required by applicable law</li>
+      </ul>
 
       <h2>7. Your Rights and Choices</h2>
       <p>Depending on your location, you may have the following rights:</p>
@@ -130,6 +177,18 @@
         or use the account settings within the app.
       </p>
 
+      <h3>Data Export</h3>
+      <p>
+        You can request an export of your personal data at any time. Here's what to expect:
+      </p>
+      <ul>
+        <li><strong>Request:</strong> Email <a href="mailto:support@rallyapp.me">support@rallyapp.me</a> with subject "Data Export Request"</li>
+        <li><strong>Timeline:</strong> We will provide your data export within 30 days of your request</li>
+        <li><strong>Format:</strong> Data is provided in JSON format, which can be opened with any text editor</li>
+        <li><strong>Contents:</strong> Your export includes profile information, squad memberships, event history, RSVPs, attendance records, and Reliability Score data</li>
+        <li><strong>Delivery:</strong> Export is delivered via secure download link sent to your registered email</li>
+      </ul>
+
       <h3>Push Notifications</h3>
       <p>
         You can opt out of push notifications through your device settings or within the app settings.
@@ -137,8 +196,14 @@
 
       <h3>Location Data</h3>
       <p>
-        You can disable location services for Rally through your device settings at any time.
+        You can disable location services for Rally through your device settings at any time. Here's how we handle location data:
       </p>
+      <ul>
+        <li><strong>Collection:</strong> Location is only accessed when you initiate a check-in; we do not continuously track your location</li>
+        <li><strong>Retention:</strong> Location data used for check-in verification is retained for 30 days, then automatically deleted</li>
+        <li><strong>Storage:</strong> We store only whether a check-in was successful (yes/no), not your exact coordinates</li>
+        <li><strong>Accuracy:</strong> Check-in verification uses a proximity radius; your precise location is not stored</li>
+      </ul>
 
       <h2>8. Children's Privacy</h2>
       <p>
@@ -191,15 +256,22 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="mailto:support@rallyapp.me">Contact</a>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">Rally</a>
+          <p class="footer-tagline">Know who shows up.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="mailto:support@rallyapp.me">Contact</a>
+        </div>
       </div>
-      <p class="footer-copyright">
-        &copy; 2025 Rally. All rights reserved.
-      </p>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Rally. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 </body>

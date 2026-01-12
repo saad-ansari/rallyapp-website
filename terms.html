@@ -10,21 +10,24 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <a href="/" class="logo">Rally</a>
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Orbs Background -->
+  <div class="orbs-container" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Floating Logo -->
+  <a href="/" class="floating-logo" aria-label="Rally">R</a>
 
   <!-- Terms of Service Content -->
   <main class="legal-page">
@@ -115,14 +118,57 @@
         through Rally. Users participate in events at their own risk.
       </p>
 
-      <h2>6. Privacy</h2>
+      <h2>6. Reliability Scores</h2>
       <p>
-        Your privacy is important to us. Please review our <a href="/privacy">Privacy Policy</a> to understand
+        Rally calculates Reliability Scores based on your attendance patterns, including RSVPs made, events
+        attended, and check-ins verified. You acknowledge and agree that:
+      </p>
+      <ul>
+        <li><strong>Entertainment Purpose:</strong> Reliability Scores are provided for social and entertainment purposes only and should not be relied upon for any consequential decisions</li>
+        <li><strong>No Guarantees:</strong> We do not guarantee the accuracy, completeness, or reliability of Reliability Scores</li>
+        <li><strong>Not Official Assessments:</strong> Reliability Scores are not character assessments, credit scores, background checks, or any form of official evaluation</li>
+        <li><strong>Prohibited Uses:</strong> You agree NOT to use Reliability Scores for employment decisions, housing applications, credit determinations, insurance underwriting, or any other purpose that could affect a person's legal rights or opportunities</li>
+        <li><strong>No Discrimination:</strong> You agree not to discriminate against any person based on their Reliability Score</li>
+      </ul>
+      <p>
+        Rally reserves the right to modify the scoring algorithm at any time without notice. Past scores
+        may be recalculated when algorithm changes occur.
+      </p>
+
+      <h2>7. Location-Based Features</h2>
+      <p>
+        Rally offers location-based features, including event check-in verification. By enabling location
+        services for Rally, you acknowledge:
+      </p>
+      <ul>
+        <li>Location data is used to verify your presence at event venues for check-in purposes</li>
+        <li>Location accuracy depends on your device, network conditions, and environmental factors</li>
+        <li>You may disable location services at any time through your device settings, but some features (such as automatic check-in) will not function without location access</li>
+        <li>We do not continuously track your location; location data is only accessed when you use check-in features</li>
+      </ul>
+      <p>
+        For more information about how we handle location data, please see our <a href="/privacy.html">Privacy Policy</a>.
+      </p>
+
+      <h2>8. Beta and Pre-Release Features</h2>
+      <p>
+        Rally may offer beta, early access, or pre-release features. If you participate in such programs:
+      </p>
+      <ul>
+        <li>Beta features are provided "as is" and may contain bugs, errors, or incomplete functionality</li>
+        <li>We may modify or discontinue beta features at any time without notice</li>
+        <li>Data created during beta periods may not be preserved when features move to general availability</li>
+        <li>Your feedback about beta features may be used to improve the Service without compensation</li>
+      </ul>
+
+      <h2>9. Privacy</h2>
+      <p>
+        Your privacy is important to us. Please review our <a href="/privacy.html">Privacy Policy</a> to understand
         how we collect, use, and protect your personal information. By using Rally, you consent to our
         collection and use of data as described in the Privacy Policy.
       </p>
 
-      <h2>7. Intellectual Property</h2>
+      <h2>10. Intellectual Property</h2>
       <p>
         The Service and its original content (excluding User Content), features, and functionality are and
         will remain the exclusive property of Rally and its licensors. The Service is protected by copyright,
@@ -133,14 +179,14 @@
         our prior written consent.
       </p>
 
-      <h2>8. Third-Party Services</h2>
+      <h2>11. Third-Party Services</h2>
       <p>
         Rally may contain links to third-party websites or services that are not owned or controlled by us.
         We have no control over and assume no responsibility for the content, privacy policies, or practices
         of any third-party websites or services.
       </p>
 
-      <h2>9. Termination</h2>
+      <h2>12. Termination</h2>
       <p>
         We may terminate or suspend your account and access to the Service immediately, without prior notice
         or liability, for any reason, including if you breach these Terms.
@@ -150,7 +196,7 @@
         use the Service will cease immediately.
       </p>
 
-      <h2>10. Disclaimers</h2>
+      <h2>13. Disclaimers</h2>
       <p>
         THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS
         OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
@@ -161,7 +207,7 @@
         be corrected, or that the Service is free of viruses or other harmful components.
       </p>
 
-      <h2>11. Limitation of Liability</h2>
+      <h2>14. Limitation of Liability</h2>
       <p>
         TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL RALLY, ITS DIRECTORS, EMPLOYEES, PARTNERS,
         AGENTS, SUPPLIERS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL,
@@ -175,7 +221,7 @@
         <li>Unauthorized access, use, or alteration of your transmissions or content</li>
       </ul>
 
-      <h2>12. Indemnification</h2>
+      <h2>15. Indemnification</h2>
       <p>
         You agree to defend, indemnify, and hold harmless Rally and its officers, directors, employees, and
         agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable
@@ -183,7 +229,7 @@
         your User Content, or your violation of these Terms.
       </p>
 
-      <h2>13. Dispute Resolution</h2>
+      <h2>16. Dispute Resolution</h2>
       <p>
         Any disputes arising out of or relating to these Terms or the Service shall first be attempted to
         be resolved through informal negotiation. If the dispute cannot be resolved informally, you agree
@@ -194,13 +240,13 @@
         in a class, consolidated, or representative action.
       </p>
 
-      <h2>14. Governing Law</h2>
+      <h2>17. Governing Law</h2>
       <p>
         These Terms shall be governed by and construed in accordance with the laws of the United States,
         without regard to its conflict of law provisions.
       </p>
 
-      <h2>15. Changes to Terms</h2>
+      <h2>18. Changes to Terms</h2>
       <p>
         We reserve the right to modify or replace these Terms at any time. If a revision is material, we
         will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a
@@ -211,19 +257,31 @@
         by the revised Terms.
       </p>
 
-      <h2>16. Severability</h2>
+      <h2>19. Severability</h2>
       <p>
         If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions
         will remain in full force and effect.
       </p>
 
-      <h2>17. Entire Agreement</h2>
+      <h2>20. Entire Agreement</h2>
       <p>
         These Terms, together with our Privacy Policy, constitute the entire agreement between you and
         Rally regarding the Service and supersede any prior agreements.
       </p>
 
-      <h2>18. Contact Us</h2>
+      <h2>21. App Store Compliance</h2>
+      <p>
+        If you download Rally from the Apple App Store or Google Play Store, you acknowledge and agree:
+      </p>
+      <ul>
+        <li>These Terms are between you and Rally only, not with Apple Inc. or Google LLC</li>
+        <li>Apple and Google have no obligation to provide maintenance or support services for Rally</li>
+        <li>In the event of any failure of the app to conform to applicable warranties, you may notify Apple or Google for a refund of the purchase price (if any); to the maximum extent permitted by law, Apple and Google have no other warranty obligation</li>
+        <li>Apple and Google are not responsible for addressing any claims relating to Rally or your use of it</li>
+        <li>Apple and Google are third-party beneficiaries of these Terms and may enforce them against you</li>
+      </ul>
+
+      <h2>22. Contact Us</h2>
       <p>If you have any questions about these Terms, please contact us:</p>
       <ul>
         <li>Email: <a href="mailto:support@rallyapp.me">support@rallyapp.me</a></li>
@@ -235,15 +293,22 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="mailto:support@rallyapp.me">Contact</a>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">Rally</a>
+          <p class="footer-tagline">Know who shows up.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="mailto:support@rallyapp.me">Contact</a>
+        </div>
       </div>
-      <p class="footer-copyright">
-        &copy; 2025 Rally. All rights reserved.
-      </p>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Rally. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 </body>
