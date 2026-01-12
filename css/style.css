@@ -531,8 +531,20 @@ section {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 0 auto var(--space-10);
+  margin: 0 auto var(--space-6);
   line-height: 1.7;
+}
+
+/* Social Proof */
+.hero-social-proof {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.social-proof-count {
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
 .hero-cta {

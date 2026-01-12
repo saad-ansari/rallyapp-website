@@ -102,12 +102,13 @@
 
   const updateWaitlistCount = async () => {
     const countEl = document.getElementById('waitlist-count');
-    if (!countEl) return;
+    const heroCountEl = document.getElementById('hero-waitlist-count');
 
     try {
       if (!supabase) {
         // Show placeholder count if Supabase not configured
-        countEl.textContent = '100';
+        if (countEl) countEl.textContent = '50';
+        if (heroCountEl) heroCountEl.textContent = '50';
         return;
       }
 
@@ -118,11 +119,14 @@
       if (!error && count !== null) {
         // Round down to nearest 10 for social proof
         const displayCount = Math.floor(count / 10) * 10;
-        countEl.textContent = displayCount > 0 ? displayCount : count;
+        const finalCount = displayCount > 0 ? displayCount : count;
+        if (countEl) countEl.textContent = finalCount;
+        if (heroCountEl) heroCountEl.textContent = finalCount;
       }
     } catch (error) {
       console.error('Error fetching waitlist count:', error);
-      countEl.textContent = '100';
+      if (countEl) countEl.textContent = '50';
+      if (heroCountEl) heroCountEl.textContent = '50';
     }
   };
 
