@@ -1,0 +1,4 @@
+# Jekyll configuration for GitHub Pages
+# Explicitly include .well-known directory for iOS Universal Links and Android App Links
+include:
+  - .well-known
