@@ -358,7 +358,7 @@
       // Supabase configuration
       const SUPABASE_URL = "https://luycgijiyhemhtjiggze.supabase.co";
       const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1eWNnaWppeWhlbWh0amlnZ3plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTg0NjcsImV4cCI6MjA1MDE5NDQ2N30.Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8Ej8";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1eWNnaWppeWhlbWh0amlnZ3plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MTg0NjcsImV4cCI6MjA1MDE5NDQ2N30.sFLBDjLJPpCPYpODtK7bHxVfOJNfc0xaHxmM1tO8AYo";
 
       // Initialize Supabase client
       const supabase = window.supabase.createClient(
@@ -382,7 +382,11 @@
         );
 
         return {
-          token: params.get("token") || hashParams.get("access_token"),
+          // Support both token_hash (from our custom email) and token (legacy)
+          token_hash:
+            params.get("token_hash") ||
+            params.get("token") ||
+            hashParams.get("access_token"),
           type: params.get("type") || hashParams.get("type"),
           access_token: hashParams.get("access_token"),
           refresh_token: hashParams.get("refresh_token"),
@@ -432,11 +436,11 @@
           return;
         }
 
-        // If we have a token but no access_token, we need to verify it
-        if (params.token && params.type === "signup") {
+        // If we have a token_hash but no access_token, we need to verify it
+        if (params.token_hash && params.type === "signup") {
           try {
             const { data, error } = await supabase.auth.verifyOtp({
-              token_hash: params.token,
+              token_hash: params.token_hash,
               type: "signup",
             });
 
