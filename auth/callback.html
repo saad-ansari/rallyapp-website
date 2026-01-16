@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rally - Authentication</title>
+    <meta name="description" content="Rally authentication callback" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-bg: #0a0a0a;
+        --color-surface: #141414;
+        --color-border: #262626;
+        --color-text: #fafafa;
+        --color-text-secondary: #a3a3a3;
+        --color-brand: #e86c3a;
+        --color-brand-light: #f97316;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .container {
+        max-width: 420px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(
+          135deg,
+          var(--color-brand),
+          var(--color-brand-light)
+        );
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 32px;
+        font-size: 40px;
+        font-weight: 800;
+        color: white;
+      }
+
+      .card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        padding: 40px 32px;
+        margin-bottom: 24px;
+      }
+
+      .icon-loading {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--color-border);
+        border-top-color: var(--color-brand);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      p {
+        color: var(--color-text-secondary);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">R</div>
+
+      <div class="card">
+        <div class="icon-loading">
+          <div class="spinner"></div>
+        </div>
+        <h1>Redirecting...</h1>
+        <p>Please wait while we redirect you to the appropriate page.</p>
+      </div>
+    </div>
+
+    <script>
+      // Parse URL parameters
+      function getUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(
+          window.location.hash.substring(1)
+        );
+
+        return {
+          type: params.get("type") || hashParams.get("type"),
+          access_token: hashParams.get("access_token"),
+          refresh_token: hashParams.get("refresh_token"),
+          error: params.get("error") || hashParams.get("error"),
+        };
+      }
+
+      // Redirect based on type
+      function handleCallback() {
+        const params = getUrlParams();
+        const currentUrl = window.location.href;
+
+        // Determine the type and redirect
+        if (params.type === "recovery") {
+          // Password reset
+          window.location.href =
+            "/auth/reset-password.html" +
+            window.location.search +
+            window.location.hash;
+        } else if (params.type === "signup" || params.type === "email") {
+          // Email confirmation
+          window.location.href =
+            "/auth/confirm.html" +
+            window.location.search +
+            window.location.hash;
+        } else if (params.access_token) {
+          // Generic auth callback with tokens - try to open app
+          const deepLink = `rally://auth/callback${window.location.hash}`;
+          window.location.href = deepLink;
+
+          // Fallback to confirm page after delay
+          setTimeout(() => {
+            window.location.href = "/auth/confirm.html" + window.location.hash;
+          }, 2000);
+        } else {
+          // Unknown type - redirect to home
+          window.location.href = "/";
+        }
+      }
+
+      // Run on page load
+      handleCallback();
+    </script>
+  </body>
+</html>
