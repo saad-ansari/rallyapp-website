@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launch Guides - Rally</title>
+    <meta
+      name="description"
+      content="8-week pre-launch roadmap for Rally's March 2026 launch. Step-by-step guides for MowWow Limited."
+    />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <style>
+      .launch-hub {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      
+      .launch-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      
+      .launch-header h1 {
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .launch-header .subtitle {
+        font-size: 20px;
+        color: #6b7280;
+        margin-bottom: 12px;
+      }
+      
+      .launch-header .company {
+        font-size: 16px;
+        color: #9ca3af;
+        font-weight: 600;
+      }
+      
+      .timeline-status {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin: 40px 0;
+        flex-wrap: wrap;
+      }
+      
+      .timeline-stat {
+        text-align: center;
+      }
+      
+      .timeline-stat .number {
+        font-size: 36px;
+        font-weight: 900;
+        color: #667eea;
+      }
+      
+      .timeline-stat .label {
+        font-size: 14px;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .critical-path {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 24px;
+        border-radius: 8px;
+        margin-bottom: 40px;
+      }
+      
+      .critical-path h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #92400e;
+        margin-bottom: 16px;
+      }
+      
+      .critical-path ol {
+        margin: 0;
+        padding-left: 24px;
+      }
+      
+      .critical-path li {
+        margin-bottom: 8px;
+        color: #78350f;
+      }
+      
+      .guides-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+      
+      .guide-card {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .guide-card:hover {
+        border-color: #667eea;
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
+      }
+      
+      .guide-card.master-plan {
+        grid-column: 1 / -1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+      }
+      
+      .guide-card.master-plan:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
+      }
+      
+      .guide-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      
+      .guide-number {
+        width: 40px;
+        height: 40px;
+        background: #667eea;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 18px;
+      }
+      
+      .guide-card.master-plan .guide-number {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      
+      .guide-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #111827;
+        margin: 0;
+      }
+      
+      .guide-card.master-plan .guide-title {
+        color: white;
+      }
+      
+      .guide-meta {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      
+      .guide-meta span {
+        font-size: 14px;
+        color: #6b7280;
+      }
+      
+      .guide-card.master-plan .guide-meta span {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      
+      .guide-description {
+        font-size: 16px;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      
+      .guide-card.master-plan .guide-description {
+        color: rgba(255, 255, 255, 0.95);
+      }
+      
+      .guide-status {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .status-critical { background: #fecaca; color: #991b1b; }
+      .status-high { background: #fed7aa; color: #9a3412; }
+      .status-medium { background: #fef3c7; color: #92400e; }
+      .status-pending { background: #e5e7eb; color: #4b5563; }
+      
+      .guide-card.master-plan .guide-status {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+      }
+      
+      .help-section {
+        background: #f3f4f6;
+        border-radius: 12px;
+        padding: 32px;
+        text-align: center;
+      }
+      
+      .help-section h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      
+      .help-section p {
+        font-size: 16px;
+        color: #6b7280;
+        margin-bottom: 24px;
+      }
+      
+      .agents-list {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      
+      .agent-link {
+        padding: 8px 16px;
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease;
+      }
+      
+      .agent-link:hover {
+        border-color: #667eea;
+        background: #667eea;
+        color: white;
+      }
+      
+      @media (max-width: 768px) {
+        .launch-header h1 {
+          font-size: 32px;
+        }
+        
+        .guides-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .timeline-status {
+          gap: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="launch-hub">
+      <!-- Header -->
+      <div class="launch-header">
+        <h1>🚀 Rally Launch Guides</h1>
+        <p class="subtitle">8-Week Pre-Launch Roadmap to March 2026</p>
+        <p class="company">MowWow Limited</p>
+        
+        <div class="timeline-status">
+          <div class="timeline-stat">
+            <div class="number">8</div>
+            <div class="label">Weeks to Launch</div>
+          </div>
+          <div class="timeline-stat">
+            <div class="number">£101</div>
+            <div class="label">Spent to Date</div>
+          </div>
+          <div class="timeline-stat">
+            <div class="number">6</div>
+            <div class="label">Step Guides</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Critical Path -->
+      <div class="critical-path">
+        <h2>🎯 Critical Path (Do These First)</h2>
+        <ol>
+          <li>✅ Email Setup (DONE - hello@rallyapp.me)</li>
+          <li>🔴 App Store Accounts (DO TODAY - Apple 3-7 days, Google instant)</li>
+          <li>🟡 Product Hunt Prep (START NOW - Need 2 months engagement)</li>
+          <li>🟢 Social Media Accounts (START NOW - Build presence)</li>
+          <li>⚪ Store Listings & ASO (Week 3-4)</li>
+          <li>⚪ Beta Testing (Week 5-6)</li>
+          <li>⚪ App Submission (Week 6-7)</li>
+          <li>⚪ Public Launch (Week 8)</li>
+        </ol>
+      </div>
+      
+      <!-- Guides Grid -->
+      <div class="guides-grid">
+        <!-- Master Plan -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/00-LAUNCH-MASTER-PLAN.md" class="guide-card master-plan" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">📋</div>
+            <h3 class="guide-title">Launch Master Plan</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 15 min read</span>
+            <span>📅 Week-by-week timeline</span>
+          </div>
+          <p class="guide-description">
+            Complete 8-week overview with weekly breakdowns, critical path, time estimates, and progress tracker. Start here for the big picture.
+          </p>
+          <span class="guide-status">Start Here</span>
+        </a>
+        
+        <!-- Step 1 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/01-app-store-accounts.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">1</div>
+            <h3 class="guide-title">App Store Accounts</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 2 hours</span>
+            <span>💰 £99</span>
+            <span>📅 Week 1</span>
+          </div>
+          <p class="guide-description">
+            Apple Developer Program (Organization - MowWow Limited) + Google Play Console. Includes D-U-N-S number setup.
+          </p>
+          <span class="guide-status status-critical">Critical - Do Today</span>
+        </a>
+        
+        <!-- Step 2 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/02-product-hunt-setup.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">2</div>
+            <h3 class="guide-title">Product Hunt Setup</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 30 mins + 10 mins/day</span>
+            <span>💰 Free</span>
+            <span>📅 Week 1-8</span>
+          </div>
+          <p class="guide-description">
+            Profile creation + 2-month engagement strategy. Need 600+ followers by launch day for maximum impact.
+          </p>
+          <span class="guide-status status-high">High - Start Today</span>
+        </a>
+        
+        <!-- Step 3 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/03-social-media-accounts.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">3</div>
+            <h3 class="guide-title">Social Media Accounts</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 3-4 hours</span>
+            <span>💰 Free</span>
+            <span>📅 Week 1-2</span>
+          </div>
+          <p class="guide-description">
+            Twitter, Instagram, TikTok, Reddit, Discord, LinkedIn. Complete setup guides with bio templates and content strategy.
+          </p>
+          <span class="guide-status status-high">High - Week 1</span>
+        </a>
+        
+        <!-- Step 4 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/04-store-listings-aso.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">4</div>
+            <h3 class="guide-title">Store Listings & ASO</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 6-8 hours</span>
+            <span>💰 £0-50</span>
+            <span>📅 Week 3-4</span>
+          </div>
+          <p class="guide-description">
+            Keyword research, app name, description, screenshots. Optimize for search rankings to get organic downloads.
+          </p>
+          <span class="guide-status status-medium">Week 3-4</span>
+        </a>
+        
+        <!-- Step 5 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/05-beta-testing.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">5</div>
+            <h3 class="guide-title">Beta Testing</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 2-4 weeks</span>
+            <span>💰 Free</span>
+            <span>📅 Week 5-6</span>
+          </div>
+          <p class="guide-description">
+            TestFlight + Google Play beta. Recruit 30-50 testers, collect feedback, fix bugs, gather testimonials.
+          </p>
+          <span class="guide-status status-pending">Week 5-6</span>
+        </a>
+        
+        <!-- Step 6 -->
+        <a href="https://github.com/yourusername/rally-app/blob/main/launch-guides/06-submission-launch.md" class="guide-card" target="_blank">
+          <div class="guide-header">
+            <div class="guide-number">6</div>
+            <h3 class="guide-title">Submission & Launch</h3>
+          </div>
+          <div class="guide-meta">
+            <span>⏱️ 3-7 days + 1 day</span>
+            <span>💰 Free</span>
+            <span>📅 Week 7-8</span>
+          </div>
+          <p class="guide-description">
+            App review process + launch day hour-by-hour playbook. Coordinate Product Hunt, social media, press.
+          </p>
+          <span class="guide-status status-pending">Week 7-8</span>
+        </a>
+      </div>
+      
+      <!-- Help Section -->
+      <div class="help-section">
+        <h2>🤖 Need Expert Help?</h2>
+        <p>Consult specialist agents for strategic advice on specific topics:</p>
+        <div class="agents-list">
+          <a href="#" class="agent-link">Startup Mentor</a>
+          <a href="#" class="agent-link">Launch Strategist</a>
+          <a href="#" class="agent-link">ASO Specialist</a>
+          <a href="#" class="agent-link">Product Hunt Expert</a>
+          <a href="#" class="agent-link">Content & Virality</a>
+          <a href="#" class="agent-link">Growth & Analytics</a>
+          <a href="#" class="agent-link">Community & PR</a>
+          <a href="#" class="agent-link">Finance & Accounting</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
