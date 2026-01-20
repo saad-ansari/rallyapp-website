@@ -472,10 +472,18 @@
 
     <script>
       // Supabase Edge Function URL
-      const SUPABASE_URL = "https://ggybeyqzmlwmjxwvlbqv.supabase.co";
+      const SUPABASE_URL = "https://luycgijiyhemhtjiggze.supabase.co";
 
-      // Extract invite code from URL
+      // Extract invite code from URL (supports both path and query parameter)
       function getInviteCode() {
+        // First check query parameter (used when redirected from 404.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const codeFromQuery = urlParams.get("code");
+        if (codeFromQuery) {
+          return codeFromQuery.toUpperCase();
+        }
+
+        // Then check path (for direct access if server supports it)
         const path = window.location.pathname;
         const match = path.match(/\/join\/([A-Za-z0-9]+)/);
         return match ? match[1].toUpperCase() : null;
