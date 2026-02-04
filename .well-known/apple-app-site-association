@@ -5,6 +5,7 @@
       {
         "appID": "8BL657JLQN.com.mowwowlimited.rallyapp",
         "paths": [
+          "NOT /auth/reset-password*",
           "*"
         ]
       }

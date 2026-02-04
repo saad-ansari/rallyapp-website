@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -41,7 +41,11 @@
       }
 
       body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
         background-color: var(--color-bg);
         color: var(--color-text);
         min-height: 100vh;
@@ -240,6 +244,24 @@
       .state.active {
         display: block;
       }
+
+      /* Manual open button - initially hidden */
+      .manual-open-container {
+        display: none;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .manual-open-container.visible {
+        display: block;
+      }
+
+      .manual-open-hint {
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        margin-bottom: 12px;
+      }
     </style>
   </head>
   <body>
@@ -276,15 +298,23 @@
             Your email has been verified. You can now sign in to Rally and start
             building your reliability score.
           </p>
-          <a
-            href="rally://auth/callback"
-            class="btn btn-primary"
-            id="open-app-btn"
-          >
+          <a href="#" class="btn btn-primary" id="open-app-btn">
             Open Rally App
           </a>
+
+          <!-- Manual fallback for when auto-redirect doesn't work -->
+          <div id="manual-open" class="manual-open-container">
+            <p class="manual-open-hint">
+              Didn't open automatically? Tap the button above or download the
+              app:
+            </p>
+          </div>
+
           <div class="store-buttons">
-            <a href="https://apps.apple.com/app/rally" class="store-btn">
+            <a
+              href="https://apps.apple.com/app/rally/id6758682708"
+              class="store-btn"
+            >
               <svg
                 width="20"
                 height="20"
@@ -298,7 +328,7 @@
               App Store
             </a>
             <a
-              href="https://play.google.com/store/apps/details?id=com.rally"
+              href="https://play.google.com/store/apps/details?id=com.mowwowlimited.rallyapp"
               class="store-btn"
             >
               <svg
@@ -360,7 +390,7 @@
       // Initialize Supabase client
       const supabaseClient = window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_ANON_KEY,
       );
 
       // State management
@@ -375,7 +405,7 @@
       function getUrlParams() {
         const params = new URLSearchParams(window.location.search);
         const hashParams = new URLSearchParams(
-          window.location.hash.substring(1)
+          window.location.hash.substring(1),
         );
 
         return {
@@ -420,11 +450,17 @@
 
             showState("success");
 
-            // Try to open the app after a short delay
+            // Try to open the app after a short delay using Universal Links
+            // This redirects to app-open.html which will handle the actual app opening
             setTimeout(() => {
-              const deepLink = `rally://auth/callback#access_token=${params.access_token}&refresh_token=${params.refresh_token}`;
-              window.location.href = deepLink;
+              // Use Universal Links for reliable iOS deep linking
+              window.location.href = `https://rallyapp.me/auth/app-open#access_token=${params.access_token}&refresh_token=${params.refresh_token}&type=signup`;
             }, 1500);
+
+            // After redirect attempt, show fallback button
+            setTimeout(() => {
+              document.getElementById("manual-open").classList.add("visible");
+            }, 3500);
           } catch (error) {
             console.error("Session error:", error);
             // Still show success - the email was confirmed, user just needs to sign in manually
@@ -445,12 +481,17 @@
 
             showState("success");
 
-            // Try to open the app
+            // Try to open the app using Universal Links
             if (data.session) {
               setTimeout(() => {
-                const deepLink = `rally://auth/callback#access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}`;
-                window.location.href = deepLink;
+                // Use Universal Links for reliable iOS deep linking
+                window.location.href = `https://rallyapp.me/auth/app-open#access_token=${data.session.access_token}&refresh_token=${data.session.refresh_token}&type=signup`;
               }, 1500);
+
+              // After redirect attempt, show fallback button
+              setTimeout(() => {
+                document.getElementById("manual-open").classList.add("visible");
+              }, 3500);
             }
           } catch (error) {
             console.error("Verification error:", error);
@@ -476,16 +517,15 @@
           const params = getUrlParams();
 
           if (params.access_token && params.refresh_token) {
-            window.location.href = `rally://auth/callback#access_token=${params.access_token}&refresh_token=${params.refresh_token}`;
+            // Use Universal Links for reliable iOS deep linking
+            window.location.href = `https://rallyapp.me/auth/app-open#access_token=${params.access_token}&refresh_token=${params.refresh_token}&type=signup`;
           } else {
-            window.location.href = "rally://";
+            window.location.href = "https://rallyapp.me/auth/app-open";
           }
 
-          // Fallback: if app doesn't open, show a message
+          // Show manual open hint after attempt
           setTimeout(() => {
-            alert(
-              "If the app didn't open, please open Rally manually and sign in."
-            );
+            document.getElementById("manual-open").classList.add("visible");
           }, 2000);
         });
 
