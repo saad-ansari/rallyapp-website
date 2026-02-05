@@ -48,8 +48,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
   </head>
   <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
     <!-- Grain Texture Overlay -->
     <div class="grain-overlay" aria-hidden="true"></div>
 
@@ -59,9 +63,6 @@
       <div class="orb orb-2"></div>
       <div class="orb orb-3"></div>
     </div>
-
-    <!-- Minimal Logo -->
-    <a href="/" class="floating-logo" aria-label="Rally"><img src="/images/rally-logo.png" alt="Rally" /></a>
 
     <!-- Floating CTA Pill -->
     <a href="#waitlist" class="floating-cta" id="floating-cta">
@@ -90,17 +91,59 @@
             Coming Soon to iOS & Android
           </div>
 
+          <!-- Animated Checkmark Icon -->
+          <div class="hero-checkmark animate-fade-in">
+            <svg
+              class="checkmark-icon"
+              viewBox="0 0 100 100"
+              width="120"
+              height="120"
+            >
+              <defs>
+                <linearGradient
+                  id="checkmarkGradient"
+                  x1="0%"
+                  y1="100%"
+                  x2="0%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stop-color="#C2410C" />
+                  <stop offset="50%" stop-color="#EA580C" />
+                  <stop offset="100%" stop-color="#FB923C" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="0"
+                y="0"
+                width="100"
+                height="100"
+                rx="22"
+                fill="url(#checkmarkGradient)"
+              />
+              <path
+                class="checkmark-path"
+                d="M 28 52 L 44 68 L 72 32"
+                stroke="#FFFFFF"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="none"
+              />
+            </svg>
+          </div>
+
           <h1 class="hero-title">
-            <span class="split-text text-gradient" data-delay="0">Know</span>
-            <span class="split-text" data-delay="1">Who</span>
+            <span class="split-text text-gradient" data-delay="0">Prove</span>
+            <span class="split-text" data-delay="1">You</span>
             <br />
-            <span class="split-text" data-delay="2">Shows</span>
+            <span class="split-text" data-delay="2">Show</span>
             <span class="split-text" data-delay="3">Up</span>
           </h1>
 
           <p class="hero-subtitle animate-fade-in-up delay-1">
             Tired of "maybe" meaning "no"? Rally tracks who actually shows up —
-            so you know who you can count on, and prove you're one of them.
+            build your reliability score and prove you're someone people can
+            count on.
           </p>
 
           <!-- Early Access Value Prop -->
@@ -190,6 +233,70 @@
             </div>
           </div>
         </div>
+
+        <!-- Phone Carousel -->
+        <div class="phone-carousel-container">
+          <div class="phone-carousel" id="phone-carousel">
+            <!-- Phone 1: Home -->
+            <div class="carousel-phone" data-index="0">
+              <div class="phone-frame-mini">
+                <div class="phone-notch-mini"></div>
+                <div class="phone-screen-mini">
+                  <img src="/images/screenshots/home.jpg" alt="Rally Home" />
+                </div>
+              </div>
+              <span class="phone-label">Home</span>
+            </div>
+            <!-- Phone 2: Squads -->
+            <div class="carousel-phone" data-index="1">
+              <div class="phone-frame-mini">
+                <div class="phone-notch-mini"></div>
+                <div class="phone-screen-mini">
+                  <img src="/images/screenshots/squad-detail.jpg" alt="Rally Squads" />
+                </div>
+              </div>
+              <span class="phone-label">Squads</span>
+            </div>
+            <!-- Phone 3: Leaderboard -->
+            <div class="carousel-phone active" data-index="2">
+              <div class="phone-frame-mini">
+                <div class="phone-notch-mini"></div>
+                <div class="phone-screen-mini">
+                  <img src="/images/screenshots/leaderboard.jpg" alt="Rally Leaderboard" />
+                </div>
+              </div>
+              <span class="phone-label">Ranks</span>
+            </div>
+            <!-- Phone 4: Activity -->
+            <div class="carousel-phone" data-index="3">
+              <div class="phone-frame-mini">
+                <div class="phone-notch-mini"></div>
+                <div class="phone-screen-mini">
+                  <img src="/images/screenshots/activity.jpg" alt="Rally Activity" />
+                </div>
+              </div>
+              <span class="phone-label">Activity</span>
+            </div>
+            <!-- Phone 5: Profile -->
+            <div class="carousel-phone" data-index="4">
+              <div class="phone-frame-mini">
+                <div class="phone-notch-mini"></div>
+                <div class="phone-screen-mini">
+                  <img src="/images/screenshots/profile.jpg" alt="Rally Profile" />
+                </div>
+              </div>
+              <span class="phone-label">Profile</span>
+            </div>
+          </div>
+          <!-- Carousel Navigation Dots -->
+          <div class="carousel-dots" id="carousel-dots">
+            <button class="carousel-dot" data-index="0" aria-label="View Home screen"></button>
+            <button class="carousel-dot" data-index="1" aria-label="View Squads screen"></button>
+            <button class="carousel-dot active" data-index="2" aria-label="View Leaderboard screen"></button>
+            <button class="carousel-dot" data-index="3" aria-label="View Activity screen"></button>
+            <button class="carousel-dot" data-index="4" aria-label="View Profile screen"></button>
+          </div>
+        </div>
       </div>
 
       <!-- Scroll Indicator -->
@@ -210,7 +317,7 @@
     </section>
 
     <!-- Problem Section -->
-    <section class="problem-section" id="problem">
+    <section class="problem-section section-divider" id="problem">
       <div class="container">
         <div class="section-header scroll-animate">
           <span class="section-tag">The Problem</span>
@@ -302,7 +409,7 @@
     </section>
 
     <!-- Solution Section -->
-    <section class="solution-section">
+    <section class="solution-section section-divider">
       <div class="container">
         <div class="section-header scroll-animate">
           <span class="section-tag">The Solution</span>
@@ -497,7 +604,7 @@
     </section>
 
     <!-- How It Works -->
-    <section class="how-section">
+    <section class="how-section section-divider">
       <div class="container">
         <div class="section-header scroll-animate">
           <span class="section-tag">How It Works</span>
@@ -615,7 +722,7 @@
     </section>
 
     <!-- Leaderboard Section -->
-    <section class="leaderboard-section" id="leaderboard">
+    <section class="leaderboard-section section-divider" id="leaderboard">
       <div class="container">
         <div class="section-header scroll-animate">
           <span class="section-tag">Compete & Climb</span>
@@ -824,7 +931,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features-section" id="features">
+    <section class="features-section section-divider" id="features">
       <div class="container">
         <div class="section-header scroll-animate">
           <span class="section-tag">Features</span>
@@ -971,14 +1078,15 @@
     </section>
 
     <!-- Waitlist CTA Section -->
-    <section class="cta-section" id="waitlist">
+    <section class="cta-section section-divider" id="waitlist">
       <div class="container">
         <div class="cta-content scroll-animate">
           <h2 class="cta-title">
-            Ready to Know Who <span class="text-gradient">Shows Up?</span>
+            Ready to <span class="text-gradient">Prove You Show Up?</span>
           </h2>
           <p class="cta-subtitle">
-            Join the waitlist and be the first to build your reliable squad.
+            Join the waitlist and start building your reliability score from day
+            one.
           </p>
 
           <!-- Waitlist Form - CTA -->
@@ -1029,7 +1137,9 @@
       <div class="container">
         <div class="footer-content">
           <div class="footer-brand">
-            <a href="/" class="footer-logo"><img src="/images/rally-logo.png" alt="Rally" /></a>
+            <a href="/" class="footer-logo"
+              ><img src="/images/rally-logo.png" alt="Rally"
+            /></a>
             <p class="footer-tagline">Prove you show up.</p>
           </div>
 
@@ -1048,8 +1158,22 @@
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <!-- GSAP Animation Library -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
+    ></script>
+
     <!-- Main Scripts -->
     <script src="/js/main.js"></script>
     <script src="/js/waitlist.js"></script>
+
+    <!-- Premium Animation Scripts -->
+    <script src="/js/gsap-init.js" defer></script>
+    <script src="/js/hero.js" defer></script>
   </body>
 </html>

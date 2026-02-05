@@ -345,6 +345,175 @@
   };
 
   // ============================================
+  // SCROLL PROGRESS INDICATOR
+  // ============================================
+
+  const initScrollProgress = () => {
+    const progressBar = document.getElementById('scroll-progress');
+    if (!progressBar) return;
+
+    let ticking = false;
+
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial update
+    updateProgress();
+  };
+
+  // ============================================
+  // PHONE CAROUSEL (3D Multi-Phone)
+  // ============================================
+
+  const initPhoneCarousel = () => {
+    const carousel = document.getElementById('phone-carousel');
+    const phones = document.querySelectorAll('.carousel-phone');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    if (!carousel || phones.length < 2) return;
+
+    let currentIndex = 2; // Start with middle phone (Ranks)
+    let autoAdvanceInterval;
+    let isHovering = false;
+    const autoAdvanceDelay = 5000; // 5 seconds
+
+    // Update active state with smooth transition
+    const updateCarousel = (newIndex) => {
+      currentIndex = newIndex;
+
+      phones.forEach((phone, index) => {
+        if (index === currentIndex) {
+          phone.classList.add('active');
+        } else {
+          phone.classList.remove('active');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    };
+
+    // Navigate to specific index
+    const goToSlide = (index) => {
+      if (index < 0) index = phones.length - 1;
+      if (index >= phones.length) index = 0;
+      updateCarousel(index);
+    };
+
+    // Auto advance
+    const startAutoAdvance = () => {
+      if (autoAdvanceInterval) clearInterval(autoAdvanceInterval);
+      autoAdvanceInterval = setInterval(() => {
+        if (!isHovering) {
+          goToSlide(currentIndex + 1);
+        }
+      }, autoAdvanceDelay);
+    };
+
+    const stopAutoAdvance = () => {
+      if (autoAdvanceInterval) {
+        clearInterval(autoAdvanceInterval);
+        autoAdvanceInterval = null;
+      }
+    };
+
+    // Event listeners for dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+        startAutoAdvance();
+      });
+    });
+
+    // HOVER to activate phones on desktop
+    phones.forEach((phone, index) => {
+      phone.addEventListener('mouseenter', () => {
+        stopAutoAdvance();
+        goToSlide(index);
+      });
+
+      // TAP to activate on mobile (touch devices)
+      phone.addEventListener('click', (e) => {
+        if (index !== currentIndex) {
+          e.preventDefault();
+          goToSlide(index);
+          stopAutoAdvance();
+        }
+      });
+    });
+
+    // Resume auto-advance when mouse leaves the carousel
+    carousel.addEventListener('mouseenter', () => {
+      isHovering = true;
+      stopAutoAdvance();
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isHovering = false;
+      startAutoAdvance();
+    });
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - go to next
+          goToSlide(currentIndex + 1);
+        } else {
+          // Swipe right - go to previous
+          goToSlide(currentIndex - 1);
+        }
+        startAutoAdvance();
+      }
+    };
+
+    // Keyboard navigation
+    carousel.setAttribute('tabindex', '0');
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        goToSlide(currentIndex - 1);
+        startAutoAdvance();
+      } else if (e.key === 'ArrowRight') {
+        goToSlide(currentIndex + 1);
+        startAutoAdvance();
+      }
+    });
+
+    // Initialize
+    updateCarousel(currentIndex);
+    startAutoAdvance();
+  };
+
+  // ============================================
   // INITIALIZE ALL
   // ============================================
 
@@ -360,6 +529,8 @@
     initTiltCards();
     initMagneticButtons();
     initCardSpotlight();
+    initScrollProgress();
+    initPhoneCarousel();
   };
 
   // Run on DOM ready
