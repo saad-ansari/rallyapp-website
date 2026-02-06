@@ -775,7 +775,9 @@ section {
   align-items: center;
   gap: var(--space-3);
   cursor: pointer;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
   opacity: 0.7;
 }
 
@@ -816,19 +818,31 @@ section {
 
 /* Glow pulse on active phone */
 .carousel-phone.active .phone-frame-mini::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -3px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(234, 88, 12, 0.3), transparent, rgba(251, 146, 60, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(234, 88, 12, 0.3),
+    transparent,
+    rgba(251, 146, 60, 0.2)
+  );
   z-index: -1;
   opacity: 0;
   animation: glow-ring 2s ease-in-out infinite;
 }
 
 @keyframes glow-ring {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.02); }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 /* Hover effect - brings phone forward */
@@ -881,7 +895,7 @@ section {
 
 /* Glass reflection effect */
 .phone-screen-mini::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -2433,6 +2447,45 @@ section {
 
   .waitlist-form .btn {
     width: 100%;
+  }
+}
+
+/* ============================================
+   FLOATING LOGO (for legal pages)
+   ============================================ */
+.floating-logo {
+  position: fixed;
+  top: var(--space-6);
+  left: var(--space-6);
+  z-index: 100;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.floating-logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.floating-logo:hover img {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+@media (max-width: 768px) {
+  .floating-logo {
+    top: var(--space-4);
+    left: var(--space-4);
+  }
+
+  .floating-logo img {
+    width: 40px;
+    height: 40px;
   }
 }
 

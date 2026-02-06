@@ -1,0 +1,1780 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rally - Creative Screenshot Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand-primary: #ea580c;
+        --brand-accent: #14b8a6;
+        --dark-base: #0a0a0f;
+        --dark-surface: #18181b;
+        --dark-elevated: #27272a;
+        --glow-orange: rgba(234, 88, 12, 0.4);
+        --glow-teal: rgba(20, 184, 166, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #0a0a0f;
+        color: white;
+        padding: 40px;
+        min-height: 100vh;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .header h1 {
+        font-size: 48px;
+        font-weight: 900;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #ea580c, #f97316, #14b8a6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header p {
+        font-size: 18px;
+        color: #71717a;
+      }
+
+      .design-section {
+        margin-bottom: 80px;
+      }
+
+      .design-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--brand-primary);
+      }
+
+      .design-desc {
+        font-size: 16px;
+        color: #a1a1aa;
+        margin-bottom: 32px;
+        max-width: 600px;
+      }
+
+      .screenshots-row {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        padding: 20px 0;
+      }
+
+      /* ============================================
+           DESIGN 1: DARK PREMIUM WITH GLOW
+           ============================================ */
+      .frame-dark {
+        width: 322px;
+        height: 699px;
+        background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 24px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-dark::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle at 50% 100%,
+          var(--glow-orange) 0%,
+          transparent 50%
+        );
+        opacity: 0.6;
+      }
+
+      .frame-dark .headline {
+        font-size: 36px;
+        font-weight: 900;
+        color: white;
+        text-align: center;
+        line-height: 1.05;
+        margin-bottom: 12px;
+        z-index: 1;
+      }
+
+      .frame-dark .headline .highlight {
+        color: var(--brand-primary);
+      }
+
+      .frame-dark .subtitle {
+        font-size: 15px;
+        font-weight: 500;
+        color: #a1a1aa;
+        text-align: center;
+        margin-bottom: 24px;
+        z-index: 1;
+      }
+
+      .frame-dark .phone {
+        width: 200px;
+        height: 434px;
+        background: #000;
+        border-radius: 32px;
+        padding: 8px;
+        box-shadow:
+          0 0 80px var(--glow-orange),
+          0 0 0 2px #333,
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        z-index: 1;
+        position: relative;
+      }
+
+      .frame-dark .phone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 20px;
+        background: #000;
+        border-radius: 10px;
+        z-index: 10;
+      }
+
+      .frame-dark .phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        overflow: hidden;
+      }
+
+      .frame-dark .phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      /* Teal glow variant */
+      .frame-dark.glow-teal::before {
+        background: radial-gradient(
+          circle at 50% 100%,
+          var(--glow-teal) 0%,
+          transparent 50%
+        );
+      }
+
+      .frame-dark.glow-teal .phone {
+        box-shadow:
+          0 0 80px var(--glow-teal),
+          0 0 0 2px #333,
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+
+      /* ============================================
+           DESIGN 2: FULL BLEED UI
+           No phone frame - app fills the space
+           ============================================ */
+      .frame-fullbleed {
+        width: 322px;
+        height: 699px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-fullbleed .app-screenshot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .frame-fullbleed .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 40px 24px;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(0, 0, 0, 0.7) 50%,
+          transparent 100%
+        );
+      }
+
+      .frame-fullbleed .headline {
+        font-size: 32px;
+        font-weight: 900;
+        color: white;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+
+      .frame-fullbleed .subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .frame-fullbleed .top-badge {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        background: var(--brand-primary);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* ============================================
+           DESIGN 3: PROBLEM → SOLUTION
+           Split screen storytelling
+           ============================================ */
+      .frame-story {
+        width: 322px;
+        height: 699px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-story .problem {
+        flex: 1;
+        background: linear-gradient(180deg, #1f1315 0%, #2d1b1e 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+      }
+
+      .frame-story .problem::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 16px solid #2d1b1e;
+      }
+
+      .frame-story .solution {
+        flex: 1.2;
+        background: linear-gradient(180deg, #0d2818 0%, #14532d 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .frame-story .emoji {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+
+      .frame-story .label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+        opacity: 0.7;
+      }
+
+      .frame-story .problem .label {
+        color: #f87171;
+      }
+
+      .frame-story .solution .label {
+        color: #4ade80;
+      }
+
+      .frame-story .text {
+        font-size: 20px;
+        font-weight: 800;
+        text-align: center;
+        color: white;
+        line-height: 1.2;
+      }
+
+      .frame-story .stats {
+        display: flex;
+        gap: 16px;
+        margin-top: 12px;
+      }
+
+      .frame-story .stat {
+        text-align: center;
+      }
+
+      .frame-story .stat-value {
+        font-size: 28px;
+        font-weight: 900;
+      }
+
+      .frame-story .problem .stat-value {
+        color: #f87171;
+      }
+
+      .frame-story .solution .stat-value {
+        color: #4ade80;
+      }
+
+      .frame-story .stat-label {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+      }
+
+      /* ============================================
+           DESIGN 4: BOLD TYPOGRAPHY FIRST
+           Massive text, smaller phone
+           ============================================ */
+      .frame-typo {
+        width: 322px;
+        height: 699px;
+        background: var(--brand-primary);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 20px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-typo .mega-text {
+        font-size: 72px;
+        font-weight: 900;
+        color: white;
+        line-height: 0.9;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
+
+      .frame-typo .mega-text .outline {
+        -webkit-text-stroke: 2px white;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .frame-typo .tagline {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: auto;
+      }
+
+      .frame-typo .mini-phone {
+        width: 140px;
+        height: 304px;
+        background: #000;
+        border-radius: 24px;
+        padding: 6px;
+        align-self: flex-end;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .frame-typo .mini-phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .frame-typo .mini-phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      /* Variant backgrounds */
+      .frame-typo.bg-teal {
+        background: var(--brand-accent);
+      }
+
+      .frame-typo.bg-dark {
+        background: linear-gradient(135deg, #18181b 0%, #0a0a0f 100%);
+      }
+
+      .frame-typo.bg-dark .mega-text {
+        background: linear-gradient(135deg, #ea580c, #f97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .frame-typo.bg-dark .mega-text .outline {
+        -webkit-text-stroke: 2px var(--brand-primary);
+        -webkit-text-fill-color: transparent;
+        background: none;
+      }
+
+      /* ============================================
+           DESIGN 5: TIER PROGRESSION
+           Each screenshot = different tier color
+           ============================================ */
+      .frame-tier {
+        width: 322px;
+        height: 699px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 24px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-tier.tier-starter {
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      }
+
+      .frame-tier.tier-rising {
+        background: linear-gradient(180deg, #0c4a6e 0%, #082f49 100%);
+      }
+
+      .frame-tier.tier-builder {
+        background: linear-gradient(180deg, #581c87 0%, #3b0764 100%);
+      }
+
+      .frame-tier.tier-bronze {
+        background: linear-gradient(180deg, #78350f 0%, #451a03 100%);
+      }
+
+      .frame-tier.tier-gold {
+        background: linear-gradient(180deg, #854d0e 0%, #422006 100%);
+      }
+
+      .frame-tier.tier-platinum {
+        background: linear-gradient(180deg, #4338ca 0%, #312e81 100%);
+      }
+
+      .frame-tier .tier-badge {
+        padding: 10px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+
+      .tier-starter .tier-badge {
+        background: #94a3b8;
+        color: #0f172a;
+      }
+      .tier-rising .tier-badge {
+        background: #38bdf8;
+        color: #082f49;
+      }
+      .tier-builder .tier-badge {
+        background: #a855f7;
+        color: #3b0764;
+      }
+      .tier-bronze .tier-badge {
+        background: #d97706;
+        color: #451a03;
+      }
+      .tier-gold .tier-badge {
+        background: #fbbf24;
+        color: #422006;
+      }
+      .tier-platinum .tier-badge {
+        background: #818cf8;
+        color: #312e81;
+      }
+
+      .frame-tier .score {
+        font-size: 80px;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+      }
+
+      .frame-tier .score-label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 24px;
+      }
+
+      .frame-tier .tier-phone {
+        width: 180px;
+        height: 390px;
+        background: #000;
+        border-radius: 28px;
+        padding: 8px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .frame-tier .tier-phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .frame-tier .tier-phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      /* ============================================
+           DESIGN 6: CONTINUOUS FLOW
+           Screenshots that connect when swiped
+           ============================================ */
+      .frame-flow {
+        width: 322px;
+        height: 699px;
+        background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .frame-flow .flow-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--brand-primary) 20%,
+          var(--brand-primary) 80%,
+          transparent 100%
+        );
+      }
+
+      .frame-flow .flow-dot {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        background: var(--brand-primary);
+        border-radius: 50%;
+        box-shadow: 0 0 20px var(--glow-orange);
+      }
+
+      .frame-flow .flow-dot.left {
+        left: -12px;
+      }
+      .frame-flow .flow-dot.right {
+        right: -12px;
+      }
+      .frame-flow .flow-dot.center {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 32px;
+        height: 32px;
+      }
+
+      .frame-flow .step-number {
+        font-size: 120px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.05);
+        position: absolute;
+        top: 40px;
+        right: 24px;
+      }
+
+      .frame-flow .content {
+        z-index: 1;
+        text-align: center;
+      }
+
+      .frame-flow .headline {
+        font-size: 28px;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 8px;
+      }
+
+      .frame-flow .subtitle {
+        font-size: 14px;
+        color: #71717a;
+        margin-bottom: 24px;
+      }
+
+      .frame-flow .flow-phone {
+        width: 160px;
+        height: 347px;
+        background: #000;
+        border-radius: 24px;
+        padding: 6px;
+        box-shadow: 0 0 60px var(--glow-orange);
+      }
+
+      .frame-flow .flow-phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .frame-flow .flow-phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      /* Style switcher */
+      .style-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px;
+        border-radius: 16px;
+        z-index: 1000;
+        width: 200px;
+      }
+
+      .style-switcher h4 {
+        color: var(--brand-primary);
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .style-switcher a {
+        display: block;
+        color: #71717a;
+        text-decoration: none;
+        padding: 8px 0;
+        font-size: 13px;
+        border-bottom: 1px solid #27272a;
+        transition: color 0.2s;
+      }
+
+      .style-switcher a:hover {
+        color: white;
+      }
+
+      .style-switcher a:last-child {
+        border-bottom: none;
+      }
+
+      /* ============================================
+           DESIGN 7: DARK PREMIUM + TIER (COMBINED)
+           Best of both worlds
+           ============================================ */
+      .frame-dark-tier {
+        width: 322px;
+        height: 699px;
+        background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .tier-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .tier-glow-orange {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(234, 88, 12, 0.5) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-teal {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(20, 184, 166, 0.4) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-starter {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(148, 163, 184, 0.35) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-rising {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(56, 189, 248, 0.4) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-builder {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(168, 85, 247, 0.45) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-bronze {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(217, 119, 6, 0.45) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-silver {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(161, 161, 170, 0.4) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-gold {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(251, 191, 36, 0.5) 0%,
+          transparent 60%
+        );
+      }
+      .tier-glow-platinum {
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          rgba(129, 140, 248, 0.5) 0%,
+          transparent 60%
+        );
+      }
+
+      .dt-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        padding: 32px 20px;
+      }
+
+      .dt-tier-badge {
+        padding: 8px 20px;
+        border-radius: 24px;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+
+      .tier-badge-starter {
+        background: #94a3b8;
+        color: #0f172a;
+      }
+      .tier-badge-rising {
+        background: #38bdf8;
+        color: #082f49;
+      }
+      .tier-badge-builder {
+        background: #a855f7;
+        color: #3b0764;
+      }
+      .tier-badge-bronze {
+        background: #d97706;
+        color: #451a03;
+      }
+      .tier-badge-silver {
+        background: #a1a1aa;
+        color: #27272a;
+      }
+      .tier-badge-gold {
+        background: #fbbf24;
+        color: #422006;
+      }
+      .tier-badge-platinum {
+        background: #818cf8;
+        color: #312e81;
+      }
+      .tier-badge-orange {
+        background: #f97316;
+        color: white;
+      }
+      .tier-badge-teal {
+        background: #14b8a6;
+        color: white;
+      }
+
+      .dt-feature-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* CSS Icons */
+      .icon-checkmark {
+        width: 48px;
+        height: 48px;
+        border: 4px solid currentColor;
+        border-radius: 50%;
+        position: relative;
+      }
+      .icon-checkmark::before {
+        content: "";
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 12px;
+        height: 22px;
+        border-right: 4px solid currentColor;
+        border-bottom: 4px solid currentColor;
+      }
+
+      .icon-pin {
+        width: 32px;
+        height: 44px;
+        background: currentColor;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: relative;
+      }
+      .icon-pin::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background: #18181b;
+        border-radius: 50%;
+      }
+      .icon-pin::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 14px solid currentColor;
+      }
+
+      .icon-trophy {
+        width: 40px;
+        height: 36px;
+        background: currentColor;
+        border-radius: 0 0 20px 20px;
+        position: relative;
+      }
+      .icon-trophy::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: -12px;
+        width: 12px;
+        height: 20px;
+        border: 4px solid currentColor;
+        border-right: none;
+        border-radius: 12px 0 0 12px;
+        background: transparent;
+      }
+      .icon-trophy::after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: -12px;
+        width: 12px;
+        height: 20px;
+        border: 4px solid currentColor;
+        border-left: none;
+        border-radius: 0 12px 12px 0;
+        background: transparent;
+      }
+
+      .dt-score {
+        font-size: 64px;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .dt-percent {
+        font-size: 36px;
+        opacity: 0.7;
+      }
+
+      .dt-headline {
+        font-size: 28px;
+        font-weight: 800;
+        color: white;
+        text-align: center;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+
+      .highlight-orange {
+        color: #f97316;
+      }
+      .highlight-teal {
+        color: #14b8a6;
+      }
+      .highlight-starter {
+        color: #94a3b8;
+      }
+      .highlight-rising {
+        color: #38bdf8;
+      }
+      .highlight-builder {
+        color: #a855f7;
+      }
+      .highlight-bronze {
+        color: #d97706;
+      }
+      .highlight-silver {
+        color: #a1a1aa;
+      }
+      .highlight-gold {
+        color: #fbbf24;
+      }
+      .highlight-platinum {
+        color: #818cf8;
+      }
+
+      .dt-subtitle {
+        font-size: 14px;
+        color: #71717a;
+        text-align: center;
+        margin-bottom: auto;
+      }
+
+      .dt-phone {
+        width: 180px;
+        height: 390px;
+        background: #000;
+        border-radius: 28px;
+        padding: 8px;
+        position: relative;
+      }
+
+      .dt-phone::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 56px;
+        height: 20px;
+        background: #000;
+        border-radius: 10px;
+        z-index: 10;
+      }
+
+      .glow-phone-orange {
+        box-shadow:
+          0 0 60px rgba(234, 88, 12, 0.5),
+          0 0 0 2px #333;
+      }
+      .glow-phone-teal {
+        box-shadow:
+          0 0 60px rgba(20, 184, 166, 0.45),
+          0 0 0 2px #333;
+      }
+      .glow-phone-starter {
+        box-shadow:
+          0 0 50px rgba(148, 163, 184, 0.35),
+          0 0 0 2px #333;
+      }
+      .glow-phone-rising {
+        box-shadow:
+          0 0 60px rgba(56, 189, 248, 0.5),
+          0 0 0 2px #333;
+      }
+      .glow-phone-builder {
+        box-shadow:
+          0 0 60px rgba(168, 85, 247, 0.5),
+          0 0 0 2px #333;
+      }
+      .glow-phone-bronze {
+        box-shadow:
+          0 0 60px rgba(217, 119, 6, 0.5),
+          0 0 0 2px #333;
+      }
+      .glow-phone-silver {
+        box-shadow:
+          0 0 50px rgba(161, 161, 170, 0.4),
+          0 0 0 2px #333;
+      }
+      .glow-phone-gold {
+        box-shadow:
+          0 0 70px rgba(251, 191, 36, 0.55),
+          0 0 0 2px #333;
+      }
+      .glow-phone-platinum {
+        box-shadow:
+          0 0 70px rgba(129, 140, 248, 0.55),
+          0 0 0 2px #333;
+      }
+
+      .dt-phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .dt-phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="style-switcher">
+      <h4>Quick Nav</h4>
+      <a href="#dark-premium">1. Dark Premium</a>
+      <a href="#full-bleed">2. Full Bleed</a>
+      <a href="#problem-solution">3. Problem → Solution</a>
+      <a href="#bold-typo">4. Bold Typography</a>
+      <a href="#tier-colors">5. Tier Colors</a>
+      <a href="#flow">6. Continuous Flow</a>
+      <a href="#dark-tier" style="color: var(--brand-primary); font-weight: 600"
+        >7. Dark + Tier ★</a
+      >
+    </div>
+
+    <div class="header">
+      <h1>Out of the Box Designs</h1>
+      <p>Creative screenshot concepts that stand out in the App Store</p>
+    </div>
+
+    <!-- DESIGN 1: DARK PREMIUM -->
+    <div class="design-section" id="dark-premium">
+      <h2 class="design-title">1. Dark Premium with Glow</h2>
+      <p class="design-desc">
+        Dark backgrounds stand out because 90% of apps use light. Orange glow
+        adds premium feel and draws attention to the phone.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-dark">
+          <div class="headline">
+            No More <span class="highlight">Maybes</span>
+          </div>
+          <div class="subtitle">See who actually shows up</div>
+          <div class="phone">
+            <div class="phone-screen">
+              <img src="images/screenshots/home.jpg" alt="Home" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-dark glow-teal">
+          <div class="headline">
+            Build Your <span class="highlight">Squad</span>
+          </div>
+          <div class="subtitle">Private groups for your people</div>
+          <div class="phone">
+            <div class="phone-screen">
+              <img src="images/screenshots/squad-detail.jpg" alt="Squad" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-dark">
+          <div class="headline">
+            Earn Your <span class="highlight">Score</span>
+          </div>
+          <div class="subtitle">Track reliability over time</div>
+          <div class="phone">
+            <div class="phone-screen">
+              <img
+                src="images/screenshots/reliability.jpeg"
+                alt="Reliability"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-dark glow-teal">
+          <div class="headline">
+            Climb The <span class="highlight">Ranks</span>
+          </div>
+          <div class="subtitle">Compete with friends & squads</div>
+          <div class="phone">
+            <div class="phone-screen">
+              <img src="images/screenshots/leaderboard.jpg" alt="Leaderboard" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 2: FULL BLEED -->
+    <div class="design-section" id="full-bleed">
+      <h2 class="design-title">2. Full Bleed UI</h2>
+      <p class="design-desc">
+        No device frame. The app UI IS the screenshot. More immersive, shows
+        more of your actual product. Text overlays at bottom.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-fullbleed">
+          <img
+            class="app-screenshot"
+            src="images/screenshots/home.jpg"
+            alt="Home"
+          />
+          <div class="top-badge">Rally</div>
+          <div class="overlay">
+            <div class="headline">Your friends.<br />Reliable.</div>
+            <div class="subtitle">See who actually shows up</div>
+          </div>
+        </div>
+
+        <div class="frame-fullbleed">
+          <img
+            class="app-screenshot"
+            src="images/screenshots/reliability.jpeg"
+            alt="Reliability"
+          />
+          <div class="top-badge">Reliability</div>
+          <div class="overlay">
+            <div class="headline">Your score.<br />Your proof.</div>
+            <div class="subtitle">0-100% based on showing up</div>
+          </div>
+        </div>
+
+        <div class="frame-fullbleed">
+          <img
+            class="app-screenshot"
+            src="images/screenshots/leaderboard.jpg"
+            alt="Leaderboard"
+          />
+          <div class="top-badge">Compete</div>
+          <div class="overlay">
+            <div class="headline">Climb.<br />Compete.</div>
+            <div class="subtitle">Friends, city, global rankings</div>
+          </div>
+        </div>
+
+        <div class="frame-fullbleed">
+          <img
+            class="app-screenshot"
+            src="images/screenshots/activity.jpg"
+            alt="Activity"
+          />
+          <div class="top-badge">Activity</div>
+          <div class="overlay">
+            <div class="headline">Stay<br />Connected</div>
+            <div class="subtitle">Never miss a moment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 3: PROBLEM → SOLUTION -->
+    <div class="design-section" id="problem-solution">
+      <h2 class="design-title">3. Problem → Solution</h2>
+      <p class="design-desc">
+        Storytelling through contrast. Show the pain point, then the solution.
+        Emotional, relatable, memorable.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-story">
+          <div class="problem">
+            <div class="emoji">😤</div>
+            <div class="label">Without Rally</div>
+            <div class="text">"Maybe" means "No"</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Said yes</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Showed up</div>
+              </div>
+            </div>
+          </div>
+          <div class="solution">
+            <div class="emoji">🎯</div>
+            <div class="label">With Rally</div>
+            <div class="text">Everyone shows up</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Committed</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Showed up</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-story">
+          <div class="problem">
+            <div class="emoji">🤷</div>
+            <div class="label">Without Rally</div>
+            <div class="text">"I'll let you know"</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Waiting</div>
+              </div>
+            </div>
+          </div>
+          <div class="solution">
+            <div class="emoji">✅</div>
+            <div class="label">With Rally</div>
+            <div class="text">Clear answers, fast</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Going</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Not going</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-story">
+          <div class="problem">
+            <div class="emoji">👻</div>
+            <div class="label">Without Rally</div>
+            <div class="text">No accountability</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">0%</div>
+                <div class="stat-label">Tracked</div>
+              </div>
+            </div>
+          </div>
+          <div class="solution">
+            <div class="emoji">📊</div>
+            <div class="label">With Rally</div>
+            <div class="text">Reliability Score</div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-value">85%</div>
+                <div class="stat-label">Your score</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 4: BOLD TYPOGRAPHY -->
+    <div class="design-section" id="bold-typo">
+      <h2 class="design-title">4. Bold Typography First</h2>
+      <p class="design-desc">
+        Massive headlines dominate. The message is the hero, phone is secondary.
+        Impossible to ignore when scrolling.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-typo">
+          <div class="mega-text">SHOW<br /><span class="outline">UP</span></div>
+          <div class="tagline">Prove you're reliable</div>
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <img src="images/screenshots/home.jpg" alt="Home" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-typo bg-teal">
+          <div class="mega-text">
+            BUILD<br /><span class="outline">TRUST</span>
+          </div>
+          <div class="tagline">One check-in at a time</div>
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <img
+                src="images/screenshots/reliability.jpeg"
+                alt="Reliability"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-typo bg-dark">
+          <div class="mega-text">
+            CLIMB<br /><span class="outline">HIGH</span>
+          </div>
+          <div class="tagline">From Starter to Platinum</div>
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <img src="images/screenshots/leaderboard.jpg" alt="Leaderboard" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-typo">
+          <div class="mega-text">
+            NO<br /><span class="outline">FLAKES</span>
+          </div>
+          <div class="tagline">Find your reliable squad</div>
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <img src="images/screenshots/squad-detail.jpg" alt="Squad" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 5: TIER COLORS -->
+    <div class="design-section" id="tier-colors">
+      <h2 class="design-title">5. Tier Color Progression</h2>
+      <p class="design-desc">
+        Each screenshot uses a tier color. Creates a rainbow effect when
+        scrolling. Shows the progression journey.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-tier tier-starter">
+          <div class="tier-badge">Starter</div>
+          <div class="score">0%</div>
+          <div class="score-label">Begin your journey</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img src="images/screenshots/home.jpg" alt="Home" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-tier tier-rising">
+          <div class="tier-badge">Rising</div>
+          <div class="score">25%</div>
+          <div class="score-label">Building momentum</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img src="images/screenshots/activity.jpg" alt="Activity" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-tier tier-builder">
+          <div class="tier-badge">Builder</div>
+          <div class="score">40%</div>
+          <div class="score-label">Showing commitment</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img src="images/screenshots/squad-detail.jpg" alt="Squad" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-tier tier-bronze">
+          <div class="tier-badge">Bronze</div>
+          <div class="score">55%</div>
+          <div class="score-label">Reliable friend</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img src="images/screenshots/event-details.jpeg" alt="Event" />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-tier tier-gold">
+          <div class="tier-badge">Gold</div>
+          <div class="score">80%</div>
+          <div class="score-label">The real deal</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img
+                src="images/screenshots/reliability.jpeg"
+                alt="Reliability"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-tier tier-platinum">
+          <div class="tier-badge">Platinum</div>
+          <div class="score">95%</div>
+          <div class="score-label">Elite reliability</div>
+          <div class="tier-phone">
+            <div class="tier-phone-screen">
+              <img src="images/screenshots/leaderboard.jpg" alt="Leaderboard" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 6: CONTINUOUS FLOW -->
+    <div class="design-section" id="flow">
+      <h2 class="design-title">6. Continuous Flow</h2>
+      <p class="design-desc">
+        Screenshots designed to connect. The line flows through, creating one
+        visual story when swiping in the App Store.
+      </p>
+
+      <div class="screenshots-row">
+        <div class="frame-flow">
+          <div class="flow-line"></div>
+          <div class="flow-dot right"></div>
+          <div class="step-number">1</div>
+          <div class="content">
+            <div class="headline">Create Squad</div>
+            <div class="subtitle">Add your people</div>
+            <div class="flow-phone">
+              <div class="flow-phone-screen">
+                <img src="images/screenshots/squad-detail.jpg" alt="Squad" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-flow">
+          <div class="flow-line"></div>
+          <div class="flow-dot left"></div>
+          <div class="flow-dot right"></div>
+          <div class="step-number">2</div>
+          <div class="content">
+            <div class="headline">Plan Rally</div>
+            <div class="subtitle">Set time & place</div>
+            <div class="flow-phone">
+              <div class="flow-phone-screen">
+                <img src="images/screenshots/create-rally.jpg" alt="Create" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-flow">
+          <div class="flow-line"></div>
+          <div class="flow-dot left"></div>
+          <div class="flow-dot right"></div>
+          <div class="step-number">3</div>
+          <div class="content">
+            <div class="headline">Get RSVPs</div>
+            <div class="subtitle">No more maybes</div>
+            <div class="flow-phone">
+              <div class="flow-phone-screen">
+                <img src="images/screenshots/event-details.jpeg" alt="Event" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-flow">
+          <div class="flow-line"></div>
+          <div class="flow-dot left"></div>
+          <div class="flow-dot right"></div>
+          <div class="step-number">4</div>
+          <div class="content">
+            <div class="headline">Check In</div>
+            <div class="subtitle">Prove you showed</div>
+            <div class="flow-phone">
+              <div class="flow-phone-screen">
+                <img src="images/screenshots/home.jpg" alt="Home" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-flow">
+          <div class="flow-line"></div>
+          <div class="flow-dot left"></div>
+          <div class="step-number">5</div>
+          <div class="content">
+            <div class="headline">Build Score</div>
+            <div class="subtitle">Earn reliability</div>
+            <div class="flow-phone">
+              <div class="flow-phone-screen">
+                <img
+                  src="images/screenshots/reliability.jpeg"
+                  alt="Reliability"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN 7: DARK PREMIUM + TIER PROGRESSION (COMBINED) -->
+    <div class="design-section" id="dark-tier">
+      <h2 class="design-title">
+        7. Dark Premium + Tier Progression (Combined)
+      </h2>
+      <p class="design-desc">
+        The best of both: Dark premium backgrounds with tier-colored glows.
+        Shows the journey while maintaining that premium, distinctive feel.
+      </p>
+
+      <div class="screenshots-row">
+        <!-- 1. Hero / Intro - home.jpg shows upcoming rallies -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-orange"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-orange">Rally</div>
+            <div class="dt-feature-icon" style="color: #f97316">
+              <div class="icon-checkmark"></div>
+            </div>
+            <div class="dt-headline">
+              No More<br /><span class="highlight-orange">Maybes</span>
+            </div>
+            <div class="dt-subtitle">See who actually shows up</div>
+            <div class="dt-phone glow-phone-orange">
+              <div class="dt-phone-screen">
+                <img src="images/screenshots/home.jpg" alt="Home" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Starter Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-starter"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-starter">Starter</div>
+            <div class="dt-score">0<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Begin Your<br /><span class="highlight-starter">Journey</span>
+            </div>
+            <div class="dt-subtitle">Everyone starts here</div>
+            <div class="dt-phone glow-phone-starter">
+              <div class="dt-phone-screen">
+                <img src="images/screenshots/profile.jpg" alt="Profile" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Rising Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-rising"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-rising">Rising</div>
+            <div class="dt-score">25<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Building<br /><span class="highlight-rising">Momentum</span>
+            </div>
+            <div class="dt-subtitle">You're showing up more</div>
+            <div class="dt-phone glow-phone-rising">
+              <div class="dt-phone-screen">
+                <img src="images/screenshots/activity.jpg" alt="Activity" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Builder Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-builder"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-builder">Builder</div>
+            <div class="dt-score">40<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Showing<br /><span class="highlight-builder">Commitment</span>
+            </div>
+            <div class="dt-subtitle">Your squad notices</div>
+            <div class="dt-phone glow-phone-builder">
+              <div class="dt-phone-screen">
+                <img src="images/screenshots/squad-detail.jpg" alt="Squad" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Bronze Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-bronze"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-bronze">Bronze</div>
+            <div class="dt-score">55<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Reliable<br /><span class="highlight-bronze">Friend</span>
+            </div>
+            <div class="dt-subtitle">People count on you</div>
+            <div class="dt-phone glow-phone-bronze">
+              <div class="dt-phone-screen">
+                <img src="images/screenshots/event-details.jpeg" alt="Event" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Silver Tier - reliability.jpeg shows your personal score -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-silver"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-silver">Silver</div>
+            <div class="dt-score">65<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Proven<br /><span class="highlight-silver">Reliable</span>
+            </div>
+            <div class="dt-subtitle">Your score speaks for itself</div>
+            <div class="dt-phone glow-phone-silver">
+              <div class="dt-phone-screen">
+                <img
+                  src="images/screenshots/reliability.jpeg"
+                  alt="Reliability"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Gold Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-gold"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-gold">Gold</div>
+            <div class="dt-score">80<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              The Real<br /><span class="highlight-gold">Deal</span>
+            </div>
+            <div class="dt-subtitle">Top tier reliability</div>
+            <div class="dt-phone glow-phone-gold">
+              <div class="dt-phone-screen">
+                <img
+                  src="images/screenshots/leaderboard.jpg"
+                  alt="Leaderboard"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Platinum Tier -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-platinum"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-platinum">Platinum</div>
+            <div class="dt-score">95<span class="dt-percent">%</span></div>
+            <div class="dt-headline">
+              Elite<br /><span class="highlight-platinum">Status</span>
+            </div>
+            <div class="dt-subtitle">The most reliable</div>
+            <div class="dt-phone glow-phone-platinum">
+              <div class="dt-phone-screen">
+                <img
+                  src="images/screenshots/achievments.jpeg"
+                  alt="Achievements"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Check-In Feature - event-details shows RSVP and check-in -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-teal"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-teal">Check In</div>
+            <div class="dt-feature-icon" style="color: #14b8a6">
+              <div class="icon-pin"></div>
+            </div>
+            <div class="dt-headline">
+              Show Up.<br /><span class="highlight-teal">Build Your Score.</span>
+            </div>
+            <div class="dt-subtitle">Location verified automatically</div>
+            <div class="dt-phone glow-phone-teal">
+              <div class="dt-phone-screen">
+                <img
+                  src="images/screenshots/event-details.jpeg"
+                  alt="Check-in"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Leaderboard Feature -->
+        <div class="frame-dark-tier">
+          <div class="tier-glow tier-glow-orange"></div>
+          <div class="dt-content">
+            <div class="dt-tier-badge tier-badge-orange">Compete</div>
+            <div class="dt-feature-icon" style="color: #f97316">
+              <div class="icon-trophy"></div>
+            </div>
+            <div class="dt-headline">
+              Climb The<br /><span class="highlight-orange">Ranks</span>
+            </div>
+            <div class="dt-subtitle">Friends • City • Global</div>
+            <div class="dt-phone glow-phone-orange">
+              <div class="dt-phone-screen">
+                <img
+                  src="images/screenshots/leaderboard.jpg"
+                  alt="Leaderboard"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: 60px 0; color: #71717a">
+      <p>
+        Pick your favorite style and I'll create the full export version at
+        1290×2796px.
+      </p>
+    </div>
+  </body>
+</html>

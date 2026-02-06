@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1290, height=2796">
+    <title>Rally - Export Screenshots</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #EA580C;
+            --brand-primary-light: #F97316;
+            --brand-accent: #14B8A6;
+            --brand-secondary: #3B82F6;
+            --tier-builder: #A855F7;
+            --tier-gold: #F59E0B;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a1a2e;
+            overflow-x: auto;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.95);
+            padding: 24px;
+            border-radius: 16px;
+            color: white;
+            width: 280px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .controls h3 {
+            margin-bottom: 16px;
+            color: var(--brand-primary);
+            font-size: 18px;
+        }
+
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .controls select, .controls button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+        }
+
+        .controls select {
+            background: #2a2a3e;
+            color: white;
+            cursor: pointer;
+        }
+
+        .controls button {
+            background: var(--brand-primary);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 8px;
+            transition: all 0.2s;
+        }
+
+        .controls button:hover {
+            background: #DC4A04;
+            transform: translateY(-1px);
+        }
+
+        .controls button.secondary {
+            background: #2a2a3e;
+            margin-top: 4px;
+        }
+
+        .controls button.secondary:hover {
+            background: #3a3a4e;
+        }
+
+        .controls .info {
+            font-size: 11px;
+            color: #666;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+        }
+
+        .divider {
+            height: 1px;
+            background: #333;
+            margin: 16px 0;
+        }
+
+        /* ============================================
+           FULL SIZE SCREENSHOT FRAME
+           iOS 6.7": 1290 x 2796 px
+           ============================================ */
+        .screenshot-frame {
+            width: 1290px;
+            height: 2796px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 80px 80px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        /* ============================================
+           BACKGROUND STYLES
+           ============================================ */
+        .bg-white {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%);
+        }
+
+        .bg-warm {
+            background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 100%);
+        }
+
+        .bg-hero {
+            background: linear-gradient(180deg, #FFF7ED 0%, #FEF3C7 100%);
+        }
+
+        /* Orange Brand Backgrounds */
+        .bg-orange {
+            background: linear-gradient(180deg, #EA580C 0%, #DC4A04 100%);
+        }
+
+        .bg-orange-gradient {
+            background: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FB923C 100%);
+        }
+
+        .bg-orange-to-teal {
+            background: linear-gradient(180deg, #EA580C 0%, #F97316 40%, #14B8A6 100%);
+        }
+
+        .bg-teal {
+            background: linear-gradient(180deg, #14B8A6 0%, #0D9488 100%);
+        }
+
+        .bg-dark {
+            background: linear-gradient(180deg, #18181B 0%, #27272A 100%);
+        }
+
+        /* White text for dark backgrounds */
+        .bg-orange .headline,
+        .bg-orange-gradient .headline,
+        .bg-orange-to-teal .headline,
+        .bg-teal .headline,
+        .bg-dark .headline {
+            color: white;
+        }
+
+        .bg-orange .subtitle,
+        .bg-orange-gradient .subtitle,
+        .bg-orange-to-teal .subtitle,
+        .bg-teal .subtitle,
+        .bg-dark .subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .bg-orange .category-badge,
+        .bg-orange-gradient .category-badge,
+        .bg-teal .category-badge,
+        .bg-dark .category-badge {
+            background: white;
+            color: var(--brand-primary);
+        }
+
+        .bg-orange-to-teal .category-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Category Badge */
+        .category-badge {
+            background: var(--brand-primary);
+            color: white;
+            padding: 28px 72px;
+            border-radius: 60px;
+            font-size: 48px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 48px;
+        }
+
+        .category-badge.teal { background: var(--brand-accent); }
+        .category-badge.blue { background: var(--brand-secondary); }
+        .category-badge.purple { background: var(--tier-builder); }
+        .category-badge.gold { background: var(--tier-gold); }
+
+        /* Headline */
+        .headline {
+            font-size: 120px;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-align: center;
+            line-height: 1.05;
+            margin-bottom: 32px;
+        }
+
+        .headline.large {
+            font-size: 148px;
+        }
+
+        .headline.orange {
+            color: var(--brand-primary);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 52px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 60px;
+            max-width: 1000px;
+        }
+
+        /* ============================================
+           DEVICE FRAME - Standard Size
+           ============================================ */
+        .device-frame {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .device-phone {
+            width: 680px;
+            height: 1440px;
+            background: #1a1a1a;
+            border-radius: 100px;
+            padding: 28px;
+            box-shadow:
+                0 0 0 4px #333,
+                0 60px 120px rgba(0,0,0,0.4),
+                inset 0 0 0 2px rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .device-phone::before {
+            content: '';
+            position: absolute;
+            top: 44px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 72px;
+            background: #000;
+            border-radius: 36px;
+            z-index: 10;
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 72px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .device-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        /* ============================================
+           PHONE SIZE VARIANTS
+           iPhone aspect ratio: 1290 × 2796 = 1:2.17
+           ============================================ */
+        /* Large Phone (65% of frame) */
+        .phone-large .device-phone {
+            width: 760px;
+            height: 1649px;  /* 760 × 2.17 */
+            border-radius: 108px;
+            padding: 30px;
+        }
+
+        .phone-large .device-phone::before {
+            top: 46px;
+            width: 210px;
+            height: 76px;
+            border-radius: 38px;
+        }
+
+        .phone-large .device-screen {
+            border-radius: 78px;
+        }
+
+        .phone-large .headline {
+            font-size: 100px;
+            margin-bottom: 24px;
+        }
+
+        .phone-large .headline.large {
+            font-size: 120px;
+        }
+
+        .phone-large .subtitle {
+            font-size: 44px;
+            margin-bottom: 40px;
+        }
+
+        .phone-large .category-badge {
+            padding: 24px 60px;
+            font-size: 40px;
+            margin-bottom: 36px;
+        }
+
+        /* Extra Large Phone (75% of frame) */
+        .phone-xlarge .device-phone {
+            width: 840px;
+            height: 1823px;  /* 840 × 2.17 */
+            border-radius: 116px;
+            padding: 34px;
+        }
+
+        .phone-xlarge .device-phone::before {
+            top: 50px;
+            width: 230px;
+            height: 84px;
+            border-radius: 42px;
+        }
+
+        .phone-xlarge .device-screen {
+            border-radius: 82px;
+        }
+
+        .phone-xlarge .headline {
+            font-size: 88px;
+            margin-bottom: 20px;
+        }
+
+        .phone-xlarge .headline.large {
+            font-size: 100px;
+        }
+
+        .phone-xlarge .subtitle {
+            font-size: 40px;
+            margin-bottom: 32px;
+        }
+
+        .phone-xlarge .category-badge {
+            padding: 20px 52px;
+            font-size: 36px;
+            margin-bottom: 28px;
+        }
+
+        /* Tilted Variants */
+        .device-phone.tilted {
+            transform: perspective(2000px) rotateY(-12deg) rotateX(3deg);
+        }
+
+        .device-phone.tilted-right {
+            transform: perspective(2000px) rotateY(12deg) rotateX(3deg);
+        }
+
+        /* Hide all frames by default */
+        .screenshot-frame {
+            display: none;
+        }
+
+        .screenshot-frame.active {
+            display: flex;
+        }
+
+        /* ============================================
+           ANDROID SIZE: 1242 x 2208 px
+           ============================================ */
+        .screenshot-frame.android {
+            width: 1242px;
+            height: 2208px;
+            padding: 100px 70px 70px;
+        }
+
+        .screenshot-frame.android .category-badge {
+            padding: 24px 60px;
+            border-radius: 50px;
+            font-size: 42px;
+            margin-bottom: 40px;
+        }
+
+        .screenshot-frame.android .headline {
+            font-size: 96px;
+            margin-bottom: 28px;
+        }
+
+        .screenshot-frame.android .headline.large {
+            font-size: 120px;
+        }
+
+        .screenshot-frame.android .subtitle {
+            font-size: 44px;
+            margin-bottom: 48px;
+            max-width: 950px;
+        }
+
+        .screenshot-frame.android .device-phone {
+            width: 560px;
+            height: 1180px;
+            border-radius: 80px;
+            padding: 24px;
+        }
+
+        .screenshot-frame.android .device-phone::before {
+            top: 36px;
+            width: 160px;
+            height: 56px;
+            border-radius: 28px;
+        }
+
+        .screenshot-frame.android .device-screen {
+            border-radius: 56px;
+        }
+
+        /* Android Large Phone */
+        .screenshot-frame.android.phone-large .device-phone {
+            width: 640px;
+            height: 1350px;
+            border-radius: 88px;
+            padding: 28px;
+        }
+
+        .screenshot-frame.android.phone-large .device-phone::before {
+            top: 40px;
+            width: 180px;
+            height: 64px;
+            border-radius: 32px;
+        }
+
+        .screenshot-frame.android.phone-large .device-screen {
+            border-radius: 60px;
+        }
+
+        .screenshot-frame.android.phone-large .headline {
+            font-size: 80px;
+        }
+
+        .screenshot-frame.android.phone-large .headline.large {
+            font-size: 96px;
+        }
+
+        .screenshot-frame.android.phone-large .subtitle {
+            font-size: 38px;
+            margin-bottom: 36px;
+        }
+
+        .screenshot-frame.android.phone-large .category-badge {
+            padding: 20px 52px;
+            font-size: 36px;
+            margin-bottom: 32px;
+        }
+
+        /* Android XLarge Phone */
+        .screenshot-frame.android.phone-xlarge .device-phone {
+            width: 700px;
+            height: 1480px;
+            border-radius: 96px;
+            padding: 32px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .device-phone::before {
+            top: 44px;
+            width: 200px;
+            height: 72px;
+            border-radius: 36px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .device-screen {
+            border-radius: 64px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .headline {
+            font-size: 68px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .headline.large {
+            font-size: 80px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .subtitle {
+            font-size: 34px;
+            margin-bottom: 28px;
+        }
+
+        .screenshot-frame.android.phone-xlarge .category-badge {
+            padding: 18px 48px;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        /* ============================================
+           FEATURE GRAPHIC: 1024 x 500 px
+           ============================================ */
+        .feature-graphic {
+            width: 1024px;
+            height: 500px;
+            background: linear-gradient(135deg, #EA580C 0%, #F97316 40%, #14B8A6 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-graphic.active {
+            display: flex;
+        }
+
+        .feature-graphic::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+        }
+
+        .feature-graphic .content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .feature-graphic .logo-text {
+            font-size: 96px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature-graphic .tagline {
+            font-size: 36px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* Style preview cards */
+        .style-preview {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.95);
+            padding: 20px;
+            border-radius: 16px;
+            color: white;
+            width: 200px;
+            z-index: 1000;
+        }
+
+        .style-preview h4 {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .preview-swatch {
+            width: 100%;
+            aspect-ratio: 9/16;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .preview-swatch:hover {
+            transform: scale(1.05);
+        }
+
+        .preview-swatch.active {
+            border-color: white;
+        }
+
+        .swatch-white { background: linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%); }
+        .swatch-warm { background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 100%); }
+        .swatch-orange { background: linear-gradient(180deg, #EA580C 0%, #DC4A04 100%); }
+        .swatch-gradient { background: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FB923C 100%); }
+        .swatch-teal { background: linear-gradient(180deg, #14B8A6 0%, #0D9488 100%); }
+        .swatch-dark { background: linear-gradient(180deg, #18181B 0%, #27272A 100%); }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Screenshot Export</h3>
+
+        <div class="control-group">
+            <label>Platform</label>
+            <select id="platform" onchange="updateOptions()">
+                <option value="ios">Apple App Store (1290×2796)</option>
+                <option value="android">Google Play (1242×2208)</option>
+                <option value="feature">Feature Graphic (1024×500)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Screenshot</label>
+            <select id="screenshot">
+                <option value="1">1. Hero - No More Maybes</option>
+                <option value="2">2. Squads - Build Your Squad</option>
+                <option value="3">3. Check-In - Get Credit</option>
+                <option value="4">4. Reliability - Earn Your Score</option>
+                <option value="5">5. Leaderboard - Climb The Ranks</option>
+                <option value="6">6. Profile - Level Up</option>
+                <option value="7">7. Activity - Stay Connected</option>
+                <option value="8">8. Achievements - Unlock Badges</option>
+                <option value="9">9. Create Rally - Plan in Seconds</option>
+                <option value="10">10. Event History - Your Story</option>
+            </select>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control-group">
+            <label>Background Style</label>
+            <select id="bgStyle" onchange="applyStyles()">
+                <option value="bg-white">Light (White)</option>
+                <option value="bg-warm">Warm (Cream)</option>
+                <option value="bg-orange">Orange Brand</option>
+                <option value="bg-orange-gradient">Orange Gradient</option>
+                <option value="bg-orange-to-teal">Orange → Teal</option>
+                <option value="bg-teal">Teal Accent</option>
+                <option value="bg-dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Phone Size</label>
+            <select id="phoneSize" onchange="applyStyles()">
+                <option value="">Standard (55%)</option>
+                <option value="phone-large">Large (65%)</option>
+                <option value="phone-xlarge">Extra Large (75%)</option>
+            </select>
+        </div>
+
+        <div class="divider"></div>
+
+        <button onclick="showScreenshot()">Preview Screenshot</button>
+        <button onclick="downloadScreenshot()">Download PNG</button>
+        <button class="secondary" onclick="applyToAll()">Apply Style to All</button>
+
+        <div class="info">
+            Select options above, then click Preview.<br>
+            Download PNG for exact dimensions.
+        </div>
+    </div>
+
+    <div class="style-preview">
+        <h4>Quick Backgrounds</h4>
+        <div class="preview-grid">
+            <div class="preview-swatch swatch-white active" onclick="quickBg('bg-white')" title="Light"></div>
+            <div class="preview-swatch swatch-warm" onclick="quickBg('bg-warm')" title="Warm"></div>
+            <div class="preview-swatch swatch-orange" onclick="quickBg('bg-orange')" title="Orange"></div>
+            <div class="preview-swatch swatch-gradient" onclick="quickBg('bg-orange-gradient')" title="Gradient"></div>
+            <div class="preview-swatch swatch-teal" onclick="quickBg('bg-teal')" title="Teal"></div>
+            <div class="preview-swatch swatch-dark" onclick="quickBg('bg-dark')" title="Dark"></div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         iOS SCREENSHOTS (1290 x 2796)
+         ============================================ -->
+    <div id="ios-1" class="screenshot-frame bg-white active">
+        <div class="headline large orange">No More Maybes</div>
+        <div class="subtitle">Lock in plans with real RSVPs. See who actually shows up.</div>
+        <div class="device-frame">
+            <div class="device-phone tilted">
+                <div class="device-screen">
+                    <img src="images/screenshots/home.jpg" alt="Home">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-2" class="screenshot-frame bg-white">
+        <div class="category-badge">Squads</div>
+        <div class="headline">Build Your Squad</div>
+        <div class="subtitle">Private groups for your people</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/squad-detail.jpg" alt="Squad">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-3" class="screenshot-frame bg-white">
+        <div class="category-badge teal">Check-In</div>
+        <div class="headline">Check In.<br>Get Credit.</div>
+        <div class="subtitle">Prove you showed up, instantly</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/event-details.jpeg" alt="Event">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-4" class="screenshot-frame bg-white">
+        <div class="category-badge">Reliability</div>
+        <div class="headline">Earn Your Score</div>
+        <div class="subtitle">Track reliability over time</div>
+        <div class="device-frame">
+            <div class="device-phone tilted-right">
+                <div class="device-screen">
+                    <img src="images/screenshots/reliability.jpeg" alt="Reliability">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-5" class="screenshot-frame bg-white">
+        <div class="category-badge gold">Leaderboard</div>
+        <div class="headline">Climb The Ranks</div>
+        <div class="subtitle">Compete with friends and squads</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/leaderboard.jpg" alt="Leaderboard">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-6" class="screenshot-frame bg-white">
+        <div class="category-badge purple">Profile</div>
+        <div class="headline">Level Up</div>
+        <div class="subtitle">Track your journey from Starter to Platinum</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/profile.jpg" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-7" class="screenshot-frame bg-white">
+        <div class="category-badge teal">Activity</div>
+        <div class="headline">Stay Connected</div>
+        <div class="subtitle">Never miss a moment with your squad</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/activity.jpg" alt="Activity">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-8" class="screenshot-frame bg-white">
+        <div class="category-badge gold">Achievements</div>
+        <div class="headline">Unlock Badges</div>
+        <div class="subtitle">Celebrate every milestone</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/achievments.jpeg" alt="Achievements">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-9" class="screenshot-frame bg-white">
+        <div class="category-badge">Create</div>
+        <div class="headline">Plan in Seconds</div>
+        <div class="subtitle">Set up rallies with just a few taps</div>
+        <div class="device-frame">
+            <div class="device-phone tilted">
+                <div class="device-screen">
+                    <img src="images/screenshots/create-rally.jpg" alt="Create Rally">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ios-10" class="screenshot-frame bg-white">
+        <div class="category-badge teal">History</div>
+        <div class="headline">Your Story</div>
+        <div class="subtitle">Browse every hangout, see who showed</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/event-history.jpeg" alt="Event History">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         ANDROID SCREENSHOTS (1242 x 2208)
+         ============================================ -->
+    <div id="android-1" class="screenshot-frame android bg-white">
+        <div class="headline large orange">No More Maybes</div>
+        <div class="subtitle">Lock in plans with real RSVPs</div>
+        <div class="device-frame">
+            <div class="device-phone tilted">
+                <div class="device-screen">
+                    <img src="images/screenshots/home.jpg" alt="Home">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-2" class="screenshot-frame android bg-white">
+        <div class="category-badge">Squads</div>
+        <div class="headline">Build Your Squad</div>
+        <div class="subtitle">Private groups for your people</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/squad-detail.jpg" alt="Squad">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-3" class="screenshot-frame android bg-white">
+        <div class="category-badge teal">Check-In</div>
+        <div class="headline">Check In. Get Credit.</div>
+        <div class="subtitle">Prove you showed up</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/event-details.jpeg" alt="Event">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-4" class="screenshot-frame android bg-white">
+        <div class="category-badge">Reliability</div>
+        <div class="headline">Earn Your Score</div>
+        <div class="subtitle">Track reliability over time</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/reliability.jpeg" alt="Reliability">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-5" class="screenshot-frame android bg-white">
+        <div class="category-badge gold">Leaderboard</div>
+        <div class="headline">Climb The Ranks</div>
+        <div class="subtitle">Compete with friends</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/leaderboard.jpg" alt="Leaderboard">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-6" class="screenshot-frame android bg-white">
+        <div class="category-badge purple">Profile</div>
+        <div class="headline">Level Up</div>
+        <div class="subtitle">Starter to Platinum</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/profile.jpg" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-7" class="screenshot-frame android bg-white">
+        <div class="category-badge teal">Activity</div>
+        <div class="headline">Stay Connected</div>
+        <div class="subtitle">Never miss a moment</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/activity.jpg" alt="Activity">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-8" class="screenshot-frame android bg-white">
+        <div class="category-badge gold">Achievements</div>
+        <div class="headline">Unlock Badges</div>
+        <div class="subtitle">Celebrate milestones</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/achievments.jpeg" alt="Achievements">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-9" class="screenshot-frame android bg-white">
+        <div class="category-badge">Create</div>
+        <div class="headline">Plan in Seconds</div>
+        <div class="subtitle">Set up rallies easily</div>
+        <div class="device-frame">
+            <div class="device-phone tilted">
+                <div class="device-screen">
+                    <img src="images/screenshots/create-rally.jpg" alt="Create Rally">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="android-10" class="screenshot-frame android bg-white">
+        <div class="category-badge teal">History</div>
+        <div class="headline">Your Story</div>
+        <div class="subtitle">Browse every hangout</div>
+        <div class="device-frame">
+            <div class="device-phone">
+                <div class="device-screen">
+                    <img src="images/screenshots/event-history.jpeg" alt="Event History">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Graphic -->
+    <div id="feature" class="feature-graphic">
+        <div class="content">
+            <div class="logo-text">Rally</div>
+            <div class="tagline">Prove You Show Up</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const bgClasses = ['bg-white', 'bg-warm', 'bg-hero', 'bg-orange', 'bg-orange-gradient', 'bg-orange-to-teal', 'bg-teal', 'bg-dark'];
+        const sizeClasses = ['', 'phone-large', 'phone-xlarge'];
+
+        function updateOptions() {
+            const platform = document.getElementById('platform').value;
+            const screenshotSelect = document.getElementById('screenshot');
+            const bgSelect = document.getElementById('bgStyle');
+            const sizeSelect = document.getElementById('phoneSize');
+
+            if (platform === 'feature') {
+                screenshotSelect.style.display = 'none';
+                bgSelect.parentElement.style.display = 'none';
+                sizeSelect.parentElement.style.display = 'none';
+            } else {
+                screenshotSelect.style.display = 'block';
+                bgSelect.parentElement.style.display = 'block';
+                sizeSelect.parentElement.style.display = 'block';
+            }
+        }
+
+        function getActiveFrame() {
+            const platform = document.getElementById('platform').value;
+            if (platform === 'feature') {
+                return document.getElementById('feature');
+            }
+            const num = document.getElementById('screenshot').value;
+            return document.getElementById(`${platform}-${num}`);
+        }
+
+        function applyStyles() {
+            const frame = getActiveFrame();
+            if (!frame || frame.id === 'feature') return;
+
+            const bgStyle = document.getElementById('bgStyle').value;
+            const phoneSize = document.getElementById('phoneSize').value;
+
+            // Remove old classes
+            bgClasses.forEach(cls => frame.classList.remove(cls));
+            sizeClasses.forEach(cls => frame.classList.remove(cls));
+
+            // Add new classes
+            frame.classList.add(bgStyle);
+            if (phoneSize) frame.classList.add(phoneSize);
+
+            // Update swatch active state
+            document.querySelectorAll('.preview-swatch').forEach(s => s.classList.remove('active'));
+            const swatchClass = 'swatch-' + bgStyle.replace('bg-', '').replace('-gradient', '').replace('-to-teal', '');
+            document.querySelector(`.${swatchClass}`)?.classList.add('active');
+        }
+
+        function showScreenshot() {
+            // Hide all frames
+            document.querySelectorAll('.screenshot-frame, .feature-graphic').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            const frame = getActiveFrame();
+            frame.classList.add('active');
+            applyStyles();
+        }
+
+        function quickBg(bgClass) {
+            document.getElementById('bgStyle').value = bgClass;
+            applyStyles();
+
+            // Update swatches
+            document.querySelectorAll('.preview-swatch').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function applyToAll() {
+            const bgStyle = document.getElementById('bgStyle').value;
+            const phoneSize = document.getElementById('phoneSize').value;
+            const platform = document.getElementById('platform').value;
+
+            document.querySelectorAll('.screenshot-frame').forEach(frame => {
+                // Only apply to current platform
+                if (platform === 'ios' && frame.classList.contains('android')) return;
+                if (platform === 'android' && !frame.classList.contains('android')) return;
+
+                bgClasses.forEach(cls => frame.classList.remove(cls));
+                sizeClasses.forEach(cls => frame.classList.remove(cls));
+
+                frame.classList.add(bgStyle);
+                if (phoneSize) frame.classList.add(phoneSize);
+            });
+
+            alert(`Applied ${bgStyle} + ${phoneSize || 'standard'} size to all ${platform.toUpperCase()} screenshots!`);
+        }
+
+        async function downloadScreenshot() {
+            const platform = document.getElementById('platform').value;
+            let element, filename, width, height;
+
+            if (platform === 'feature') {
+                element = document.getElementById('feature');
+                filename = 'rally-feature-graphic-1024x500.png';
+                width = 1024;
+                height = 500;
+            } else {
+                const num = document.getElementById('screenshot').value;
+                element = document.getElementById(`${platform}-${num}`);
+                const bgStyle = document.getElementById('bgStyle').value;
+                const phoneSize = document.getElementById('phoneSize').value || 'standard';
+                filename = `rally-${platform}-${num}-${bgStyle}-${phoneSize}.png`;
+                width = platform === 'ios' ? 1290 : 1242;
+                height = platform === 'ios' ? 2796 : 2208;
+            }
+
+            if (!element.classList.contains('active')) {
+                element.classList.add('active');
+                applyStyles();
+            }
+
+            try {
+                const canvas = await html2canvas(element, {
+                    width: width,
+                    height: height,
+                    scale: 1,
+                    useCORS: true,
+                    logging: false
+                });
+
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                alert('Error generating screenshot. Try using browser DevTools screenshot instead.');
+                console.error(error);
+            }
+        }
+
+        // Initialize
+        updateOptions();
+        showScreenshot();
+    </script>
+</body>
+</html>

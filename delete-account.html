@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Account - Rally</title>
+    <meta
+      name="description"
+      content="Request deletion of your Rally account and personal data."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Page-specific styles -->
+    <style>
+      .delete-warning {
+        background: var(--color-danger-soft);
+        border: 1px solid var(--color-danger);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin: var(--space-8) 0;
+      }
+
+      .delete-warning-icon {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        margin-bottom: var(--space-4);
+      }
+
+      .delete-warning-icon svg {
+        color: var(--color-danger);
+        flex-shrink: 0;
+      }
+
+      .delete-warning-icon span {
+        font-weight: 700;
+        font-size: var(--text-body);
+        color: var(--color-danger);
+      }
+
+      .delete-warning p {
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .data-list {
+        background: var(--color-bg-elevated);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin: var(--space-6) 0;
+      }
+
+      .data-list-title {
+        font-weight: 700;
+        font-size: var(--text-body);
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-4);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+      }
+
+      .data-list-title svg {
+        color: var(--color-primary);
+      }
+
+      .data-list ul {
+        margin: 0;
+        padding-left: var(--space-6);
+      }
+
+      .data-list li {
+        margin-bottom: var(--space-2);
+        color: var(--color-text-secondary);
+      }
+
+      .data-list li::marker {
+        color: var(--color-primary);
+      }
+
+      .contact-card {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary-muted) 0%,
+          var(--color-bg-elevated) 100%
+        );
+        border: 1px solid var(--color-primary-soft);
+        border-radius: var(--radius-xl);
+        padding: var(--space-8);
+        margin: var(--space-8) 0;
+        text-align: center;
+      }
+
+      .contact-card h3 {
+        font-size: var(--text-body);
+        font-weight: 700;
+        margin-bottom: var(--space-2);
+      }
+
+      .contact-card p {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-4);
+      }
+
+      .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-3) var(--space-6);
+        background: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-weight: 600;
+        font-size: var(--text-body-sm);
+        border-radius: var(--radius-full);
+        text-decoration: none;
+        transition: all var(--transition-base);
+      }
+
+      .contact-email:hover {
+        background: var(--color-primary-hover);
+        transform: translateY(-2px);
+        box-shadow:
+          var(--shadow-lg),
+          0 4px 14px rgba(234, 88, 12, 0.25);
+      }
+
+      .processing-info {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-4);
+        background: var(--color-bg-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin: var(--space-6) 0;
+      }
+
+      .processing-info-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-primary-muted);
+        color: var(--color-primary);
+        border-radius: var(--radius-lg);
+        flex-shrink: 0;
+      }
+
+      .processing-info-text h4 {
+        font-size: var(--text-body);
+        font-weight: 700;
+        margin-bottom: var(--space-1);
+      }
+
+      .processing-info-text p {
+        margin: 0;
+        color: var(--color-text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Orbs Background -->
+    <div class="orbs-container" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Floating Logo -->
+    <a href="/" class="floating-logo" aria-label="Rally"
+      ><img src="/images/rally-logo.png" alt="Rally"
+    /></a>
+
+    <!-- Delete Account Content -->
+    <main class="legal-page">
+      <div class="container-narrow">
+        <h1>Delete Account</h1>
+        <p class="last-updated">Request deletion of your Rally account</p>
+
+        <p>
+          We're sorry to see you go. If you wish to delete your Rally account
+          and all associated data, please follow the instructions below.
+        </p>
+
+        <!-- Warning Box -->
+        <div class="delete-warning">
+          <div class="delete-warning-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+              ></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Warning: This action is permanent</span>
+          </div>
+          <p>
+            Account deletion is <strong>permanent and cannot be undone</strong>.
+            Once your account is deleted, you will not be able to recover any of
+            your data, including your reliability score, event history, or squad
+            memberships.
+          </p>
+        </div>
+
+        <h2>What Will Be Deleted</h2>
+        <p>
+          When you request account deletion, the following data will be
+          permanently removed:
+        </p>
+
+        <div class="data-list">
+          <div class="data-list-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              ></path>
+            </svg>
+            Data that will be deleted:
+          </div>
+          <ul>
+            <li>Your profile and personal information</li>
+            <li>Your squad memberships</li>
+            <li>Event history and RSVPs</li>
+            <li>Your reliability score and achievements</li>
+            <li>Photos you've uploaded</li>
+            <li>Notification history</li>
+          </ul>
+        </div>
+
+        <h2>How to Request Account Deletion</h2>
+
+        <p>To delete your account, you can use one of the following methods:</p>
+
+        <h3>Option 1: Through the App</h3>
+        <p>
+          Open the Rally app, go to <strong>Settings</strong> &gt;
+          <strong>Account</strong> &gt; <strong>Delete Account</strong>
+          and follow the prompts.
+        </p>
+
+        <h3>Option 2: Contact Support</h3>
+        <p>
+          Send an email to our support team requesting account deletion. Please
+          include the email address associated with your Rally account.
+        </p>
+
+        <div class="contact-card">
+          <h3>Contact Support</h3>
+          <p>Send an email with your account deletion request</p>
+          <a
+            href="mailto:support@rallyapp.me?subject=Account%20Deletion%20Request"
+            class="contact-email"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              ></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            support@rallyapp.me
+          </a>
+        </div>
+
+        <h2>Processing Time</h2>
+
+        <div class="processing-info">
+          <div class="processing-info-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="processing-info-text">
+            <h4>Within 14 Days</h4>
+            <p>
+              Your account deletion request will be processed within 14 days of
+              receipt. You will receive a confirmation email once your account
+              and data have been permanently deleted.
+            </p>
+          </div>
+        </div>
+
+        <h2>Questions?</h2>
+        <p>
+          If you have any questions about account deletion or data privacy,
+          please refer to our
+          <a href="/privacy.html">Privacy Policy</a> or contact us at
+          <a href="mailto:support@rallyapp.me">support@rallyapp.me</a>.
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="/" class="footer-logo"
+              ><img src="/images/rally-logo.png" alt="Rally"
+            /></a>
+            <p class="footer-tagline">Prove you show up.</p>
+          </div>
+
+          <div class="footer-links">
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/delete-account.html">Delete Account</a>
+            <a href="mailto:support@rallyapp.me">Contact</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 MowWow Limited. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

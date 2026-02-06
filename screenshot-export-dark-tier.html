@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rally - Export Dark + Tier Screenshots</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      :root {
+        --brand-primary: #ea580c;
+        --brand-accent: #14b8a6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #0a0a0f;
+        color: white;
+        padding: 40px;
+        min-height: 100vh;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        font-size: 36px;
+        font-weight: 900;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ea580c, #f97316, #14b8a6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header p {
+        color: #71717a;
+        font-size: 16px;
+      }
+
+      .controls {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .control-group label {
+        font-size: 14px;
+        color: #a1a1aa;
+      }
+
+      select {
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #18181b;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-primary {
+        background: var(--brand-primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #dc4a04;
+      }
+
+      .btn-secondary {
+        background: #27272a;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #3f3f46;
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
+      .screenshot-card {
+        background: #18181b;
+        border-radius: 16px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px solid transparent;
+      }
+
+      .screenshot-card:hover {
+        border-color: var(--brand-primary);
+      }
+
+      .screenshot-card.selected {
+        border-color: var(--brand-primary);
+        background: #27272a;
+      }
+
+      .screenshot-preview {
+        width: 100%;
+        aspect-ratio: 9/19.5;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+        position: relative;
+      }
+
+      .preview-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .preview-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 8px;
+        height: 100%;
+        gap: 4px;
+      }
+
+      .preview-badge {
+        font-size: 8px;
+        font-weight: 800;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 16px;
+        flex-shrink: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .preview-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .preview-icon-checkmark {
+        width: 28px;
+        height: 28px;
+        border: 3px solid currentColor;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .preview-icon-checkmark::before {
+        content: "";
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 7px;
+        height: 13px;
+        border-right: 3px solid currentColor;
+        border-bottom: 3px solid currentColor;
+      }
+
+      .preview-icon-pin {
+        width: 18px;
+        height: 24px;
+        background: currentColor;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: relative;
+      }
+
+      .preview-icon-pin::before {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 7px;
+        height: 7px;
+        background: #18181b;
+        border-radius: 50%;
+      }
+
+      .preview-icon-trophy {
+        width: 24px;
+        height: 20px;
+        background: currentColor;
+        border-radius: 0 0 12px 12px;
+        position: relative;
+      }
+
+      .preview-icon-trophy::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: -7px;
+        width: 7px;
+        height: 12px;
+        border: 2px solid currentColor;
+        border-right: none;
+        border-radius: 7px 0 0 7px;
+        background: transparent;
+      }
+
+      .preview-icon-trophy::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        right: -7px;
+        width: 7px;
+        height: 12px;
+        border: 2px solid currentColor;
+        border-left: none;
+        border-radius: 0 7px 7px 0;
+        background: transparent;
+      }
+
+      .preview-score {
+        font-size: 32px;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+      }
+
+      .preview-score .percent {
+        font-size: 18px;
+        opacity: 0.7;
+      }
+
+      .preview-headline {
+        font-size: 13px;
+        font-weight: 800;
+        color: white;
+        text-align: center;
+        line-height: 1.15;
+      }
+
+      .preview-subtitle {
+        font-size: 8px;
+        color: #71717a;
+        text-align: center;
+      }
+
+      .preview-phone {
+        width: 80%;
+        aspect-ratio: 1/2.17;
+        background: #000;
+        border-radius: 14px;
+        overflow: visible;
+        margin-top: auto;
+        flex-shrink: 0;
+        padding: 6px;
+        position: relative;
+      }
+
+      /* iPhone Dynamic Island / Notch */
+      .preview-phone::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 12px;
+        background: #000;
+        border-radius: 6px;
+        z-index: 10;
+      }
+
+      .preview-phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .preview-phone img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .screenshot-info {
+        text-align: center;
+      }
+
+      .screenshot-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .screenshot-info p {
+        font-size: 12px;
+        color: #71717a;
+      }
+
+      .screenshot-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .btn-small {
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: none;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-small.primary {
+        background: var(--brand-primary);
+        color: white;
+      }
+
+      .btn-small.primary:hover {
+        background: #dc4a04;
+      }
+
+      .btn-small.secondary {
+        background: #3f3f46;
+        color: white;
+      }
+
+      .btn-small.secondary:hover {
+        background: #52525b;
+      }
+
+      /* Export Canvas Container */
+      .export-container {
+        position: fixed;
+        top: 0;
+        left: -9999px;
+        z-index: -1;
+      }
+
+      /* Frame Styles at Export Size */
+      .frame-export {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .frame-export.ios {
+        width: 1290px;
+        height: 2796px;
+      }
+
+      .frame-export.android {
+        width: 1242px;
+        height: 2208px;
+      }
+
+      .tier-glow-export {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .tier-glow-orange {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(234, 88, 12, 0.5) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-teal {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(20, 184, 166, 0.4) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-starter {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(148, 163, 184, 0.35) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-rising {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(56, 189, 248, 0.4) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-builder {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(168, 85, 247, 0.45) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-bronze {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(217, 119, 6, 0.45) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-silver {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(161, 161, 170, 0.4) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-gold {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(251, 191, 36, 0.5) 0%,
+          transparent 55%
+        );
+      }
+      .tier-glow-platinum {
+        background: radial-gradient(
+          ellipse at 50% 75%,
+          rgba(129, 140, 248, 0.5) 0%,
+          transparent 55%
+        );
+      }
+
+      .content-export {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        padding: 120px 80px;
+      }
+
+      .content-export.android {
+        padding: 100px 70px;
+      }
+
+      .tier-badge-export {
+        padding: 32px 80px;
+        border-radius: 100px;
+        font-size: 48px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 6px;
+        margin-bottom: 32px;
+      }
+
+      .tier-badge-export.android {
+        padding: 28px 70px;
+        font-size: 42px;
+        letter-spacing: 5px;
+        margin-bottom: 28px;
+      }
+
+      .badge-starter {
+        background: #94a3b8;
+        color: #0f172a;
+      }
+      .badge-rising {
+        background: #38bdf8;
+        color: #082f49;
+      }
+      .badge-builder {
+        background: #a855f7;
+        color: #3b0764;
+      }
+      .badge-bronze {
+        background: #d97706;
+        color: #451a03;
+      }
+      .badge-silver {
+        background: #a1a1aa;
+        color: #27272a;
+      }
+      .badge-gold {
+        background: #fbbf24;
+        color: #422006;
+      }
+      .badge-platinum {
+        background: #818cf8;
+        color: #312e81;
+      }
+      .badge-orange {
+        background: #f97316;
+        color: white;
+      }
+      .badge-teal {
+        background: #14b8a6;
+        color: white;
+      }
+
+      .score-export {
+        font-size: 260px;
+        font-weight: 900;
+        color: white;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+
+      .score-export.android {
+        font-size: 220px;
+      }
+
+      .score-export .percent {
+        font-size: 140px;
+        opacity: 0.7;
+      }
+
+      .score-export.android .percent {
+        font-size: 120px;
+      }
+
+      .icon-export {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon-export.android {
+        width: 170px;
+        height: 170px;
+      }
+
+      .icon-checkmark-export {
+        width: 180px;
+        height: 180px;
+        border: 16px solid currentColor;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .icon-checkmark-export::before {
+        content: "";
+        position: absolute;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 45px;
+        height: 85px;
+        border-right: 16px solid currentColor;
+        border-bottom: 16px solid currentColor;
+      }
+
+      .icon-pin-export {
+        width: 120px;
+        height: 160px;
+        background: currentColor;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: relative;
+      }
+
+      .icon-pin-export::before {
+        content: "";
+        position: absolute;
+        top: 45px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 45px;
+        height: 45px;
+        background: #18181b;
+        border-radius: 50%;
+      }
+
+      .icon-trophy-export {
+        width: 150px;
+        height: 130px;
+        background: currentColor;
+        border-radius: 0 0 75px 75px;
+        position: relative;
+      }
+
+      .icon-trophy-export::before {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: -45px;
+        width: 45px;
+        height: 75px;
+        border: 16px solid currentColor;
+        border-right: none;
+        border-radius: 45px 0 0 45px;
+        background: transparent;
+      }
+
+      .icon-trophy-export::after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        right: -45px;
+        width: 45px;
+        height: 75px;
+        border: 16px solid currentColor;
+        border-left: none;
+        border-radius: 0 45px 45px 0;
+        background: transparent;
+      }
+
+      .headline-export {
+        font-size: 120px;
+        font-weight: 800;
+        color: white;
+        text-align: center;
+        line-height: 1.1;
+        margin-bottom: 32px;
+      }
+
+      .headline-export.android {
+        font-size: 100px;
+        margin-bottom: 28px;
+      }
+
+      .highlight-orange {
+        color: #f97316;
+      }
+      .highlight-teal {
+        color: #14b8a6;
+      }
+      .highlight-starter {
+        color: #94a3b8;
+      }
+      .highlight-rising {
+        color: #38bdf8;
+      }
+      .highlight-builder {
+        color: #a855f7;
+      }
+      .highlight-bronze {
+        color: #d97706;
+      }
+      .highlight-silver {
+        color: #a1a1aa;
+      }
+      .highlight-gold {
+        color: #fbbf24;
+      }
+      .highlight-platinum {
+        color: #818cf8;
+      }
+
+      .subtitle-export {
+        font-size: 56px;
+        color: #71717a;
+        text-align: center;
+        margin-bottom: auto;
+      }
+
+      .subtitle-export.android {
+        font-size: 48px;
+      }
+
+      .phone-export {
+        width: 900px;
+        height: 1953px;
+        background: #000;
+        border-radius: 130px;
+        padding: 36px;
+        position: relative;
+      }
+
+      .phone-export.android {
+        width: 870px;
+        height: 1549px;
+        border-radius: 110px;
+        padding: 32px;
+      }
+
+      .phone-export::before {
+        content: "";
+        position: absolute;
+        top: 54px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 130px;
+        height: 42px;
+        background: #000;
+        border-radius: 21px;
+        z-index: 10;
+      }
+
+      .phone-export.android::before {
+        display: none; /* Android doesn't have Dynamic Island */
+      }
+
+      .glow-orange {
+        box-shadow:
+          0 0 240px rgba(234, 88, 12, 0.5),
+          0 0 0 8px #333;
+      }
+      .glow-teal {
+        box-shadow:
+          0 0 240px rgba(20, 184, 166, 0.45),
+          0 0 0 8px #333;
+      }
+      .glow-starter {
+        box-shadow:
+          0 0 200px rgba(148, 163, 184, 0.35),
+          0 0 0 8px #333;
+      }
+      .glow-rising {
+        box-shadow:
+          0 0 240px rgba(56, 189, 248, 0.5),
+          0 0 0 8px #333;
+      }
+      .glow-builder {
+        box-shadow:
+          0 0 240px rgba(168, 85, 247, 0.5),
+          0 0 0 8px #333;
+      }
+      .glow-bronze {
+        box-shadow:
+          0 0 240px rgba(217, 119, 6, 0.5),
+          0 0 0 8px #333;
+      }
+      .glow-silver {
+        box-shadow:
+          0 0 200px rgba(161, 161, 170, 0.4),
+          0 0 0 8px #333;
+      }
+      .glow-gold {
+        box-shadow:
+          0 0 280px rgba(251, 191, 36, 0.55),
+          0 0 0 8px #333;
+      }
+      .glow-platinum {
+        box-shadow:
+          0 0 280px rgba(129, 140, 248, 0.55),
+          0 0 0 8px #333;
+      }
+
+      .phone-screen-export {
+        width: 100%;
+        height: 100%;
+        border-radius: 78px;
+        overflow: hidden;
+      }
+
+      .phone-screen-export.android {
+        border-radius: 67px;
+      }
+
+      .phone-screen-export img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      /* Progress */
+      .progress-bar {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #27272a;
+        padding: 16px 32px;
+        border-radius: 12px;
+        display: none;
+        align-items: center;
+        gap: 16px;
+        z-index: 1000;
+      }
+
+      .progress-bar.active {
+        display: flex;
+      }
+
+      .spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #333;
+        border-top-color: var(--brand-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .size-info {
+        background: #18181b;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 40px;
+      }
+
+      .size-info h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        color: var(--brand-primary);
+      }
+
+      .size-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .size-item {
+        background: #27272a;
+        padding: 16px;
+        border-radius: 8px;
+      }
+
+      .size-item h4 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .size-item p {
+        font-size: 12px;
+        color: #71717a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Export: Dark Premium + Tier</h1>
+      <p>Export all 10 screenshots for App Store and Play Store</p>
+    </div>
+
+    <div
+      class="size-info"
+      style="background: #1a1a2e; border: 1px solid #f97316"
+    >
+      <h3 style="color: #f97316">How to Export Screenshots</h3>
+      <div style="color: #a1a1aa; font-size: 14px; line-height: 1.6">
+        <p style="margin-bottom: 12px">
+          <strong style="color: white">Option 1: Full-Size Preview</strong>
+          (Recommended)
+        </p>
+        <p style="margin-bottom: 16px">
+          Click any screenshot card, then click "Open Full Size". Use your
+          browser's screenshot tool (<code
+            style="
+              background: #333;
+              padding: 2px 8px;
+              border-radius: 4px;
+              color: #fff;
+            "
+            >Cmd+Shift+4</code
+          >
+          on Mac) to capture it.
+        </p>
+        <p style="margin-bottom: 12px">
+          <strong style="color: white">Option 2: Auto Export</strong> (requires
+          local server)
+        </p>
+        <p>
+          Run:
+          <code
+            style="
+              background: #333;
+              padding: 4px 12px;
+              border-radius: 4px;
+              color: #4ade80;
+              display: inline-block;
+              margin: 4px 0;
+            "
+            >cd rallyapp-website && npx serve</code
+          >
+          then open
+          <code
+            style="
+              background: #333;
+              padding: 2px 8px;
+              border-radius: 4px;
+              color: #38bdf8;
+            "
+            >http://localhost:3000/screenshot-export-dark-tier.html</code
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="size-info">
+      <h3>Export Sizes</h3>
+      <div class="size-grid">
+        <div class="size-item">
+          <h4>iOS - iPhone 6.7"</h4>
+          <p>1290 x 2796 px</p>
+        </div>
+        <div class="size-item">
+          <h4>iOS - iPhone 6.5"</h4>
+          <p>1242 x 2688 px</p>
+        </div>
+        <div class="size-item">
+          <h4>Android - Phone</h4>
+          <p>1242 x 2208 px</p>
+        </div>
+        <div class="size-item">
+          <h4>Feature Graphic</h4>
+          <p>1024 x 500 px</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label>Platform:</label>
+        <select id="platform">
+          <option value="ios">iOS (1290 x 2796)</option>
+          <option value="android">Android (1242 x 2208)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="exportAll()">
+        Export All Screenshots
+      </button>
+      <button class="btn btn-secondary" onclick="exportSelected()">
+        Export Selected
+      </button>
+    </div>
+
+    <div class="screenshots-grid" id="screenshotGrid">
+      <!-- Cards will be generated by JS -->
+    </div>
+
+    <div class="export-container" id="exportContainer"></div>
+
+    <div class="progress-bar" id="progressBar">
+      <div class="spinner"></div>
+      <span id="progressText">Exporting...</span>
+    </div>
+
+    <script>
+      const screenshots = [
+        {
+          id: 1,
+          badge: "Rally",
+          badgeClass: "badge-orange",
+          glow: "tier-glow-orange",
+          phoneGlow: "glow-orange",
+          type: "icon",
+          iconType: "checkmark",
+          iconColor: "#F97316",
+          headline: "No More",
+          highlight: "Maybes",
+          highlightClass: "highlight-orange",
+          subtitle: "See who actually shows up",
+          image: "home.jpg",
+        },
+        {
+          id: 2,
+          badge: "Starter",
+          badgeClass: "badge-starter",
+          glow: "tier-glow-starter",
+          phoneGlow: "glow-starter",
+          type: "score",
+          score: "0",
+          headline: "Begin Your",
+          highlight: "Journey",
+          highlightClass: "highlight-starter",
+          subtitle: "Everyone starts here",
+          image: "profile.jpg",
+        },
+        {
+          id: 3,
+          badge: "Rising",
+          badgeClass: "badge-rising",
+          glow: "tier-glow-rising",
+          phoneGlow: "glow-rising",
+          type: "score",
+          score: "25",
+          headline: "Building",
+          highlight: "Momentum",
+          highlightClass: "highlight-rising",
+          subtitle: "You're showing up more",
+          image: "activity.jpg",
+        },
+        {
+          id: 4,
+          badge: "Builder",
+          badgeClass: "badge-builder",
+          glow: "tier-glow-builder",
+          phoneGlow: "glow-builder",
+          type: "score",
+          score: "40",
+          headline: "Showing",
+          highlight: "Commitment",
+          highlightClass: "highlight-builder",
+          subtitle: "Your squad notices",
+          image: "squad-detail.jpg",
+        },
+        {
+          id: 5,
+          badge: "Bronze",
+          badgeClass: "badge-bronze",
+          glow: "tier-glow-bronze",
+          phoneGlow: "glow-bronze",
+          type: "score",
+          score: "55",
+          headline: "Reliable",
+          highlight: "Friend",
+          highlightClass: "highlight-bronze",
+          subtitle: "People count on you",
+          image: "event-details.jpeg",
+        },
+        {
+          id: 6,
+          badge: "Silver",
+          badgeClass: "badge-silver",
+          glow: "tier-glow-silver",
+          phoneGlow: "glow-silver",
+          type: "score",
+          score: "65",
+          headline: "Proven",
+          highlight: "Reliable",
+          highlightClass: "highlight-silver",
+          subtitle: "Your score speaks for itself",
+          image: "reliability.jpeg",
+        },
+        {
+          id: 7,
+          badge: "Gold",
+          badgeClass: "badge-gold",
+          glow: "tier-glow-gold",
+          phoneGlow: "glow-gold",
+          type: "score",
+          score: "80",
+          headline: "The Real",
+          highlight: "Deal",
+          highlightClass: "highlight-gold",
+          subtitle: "Top tier reliability",
+          image: "leaderboard.jpg",
+        },
+        {
+          id: 8,
+          badge: "Platinum",
+          badgeClass: "badge-platinum",
+          glow: "tier-glow-platinum",
+          phoneGlow: "glow-platinum",
+          type: "score",
+          score: "95",
+          headline: "Elite",
+          highlight: "Status",
+          highlightClass: "highlight-platinum",
+          subtitle: "The most reliable",
+          image: "achievments.jpeg",
+        },
+        {
+          id: 9,
+          badge: "Check In",
+          badgeClass: "badge-teal",
+          glow: "tier-glow-teal",
+          phoneGlow: "glow-teal",
+          type: "icon",
+          iconType: "pin",
+          iconColor: "#14B8A6",
+          headline: "Show Up.",
+          highlight: "Build Your Score.",
+          highlightClass: "highlight-teal",
+          subtitle: "Location verified automatically",
+          image: "event-details.jpeg",
+        },
+        {
+          id: 10,
+          badge: "Compete",
+          badgeClass: "badge-orange",
+          glow: "tier-glow-orange",
+          phoneGlow: "glow-orange",
+          type: "icon",
+          iconType: "trophy",
+          iconColor: "#F97316",
+          headline: "Climb The",
+          highlight: "Ranks",
+          highlightClass: "highlight-orange",
+          subtitle: "Friends \u2022 City \u2022 Global",
+          image: "leaderboard.jpg",
+        },
+      ];
+
+      let selectedScreenshots = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+      function getBadgeColor(badgeClass) {
+        const colors = {
+          "badge-orange": "#F97316",
+          "badge-teal": "#14B8A6",
+          "badge-starter": "#94A3B8",
+          "badge-rising": "#38BDF8",
+          "badge-builder": "#A855F7",
+          "badge-bronze": "#D97706",
+          "badge-silver": "#A1A1AA",
+          "badge-gold": "#FBBF24",
+          "badge-platinum": "#818CF8",
+        };
+        return colors[badgeClass] || "#666";
+      }
+
+      function getHighlightColor(highlightClass) {
+        const colors = {
+          "highlight-orange": "#F97316",
+          "highlight-teal": "#14B8A6",
+          "highlight-starter": "#94A3B8",
+          "highlight-rising": "#38BDF8",
+          "highlight-builder": "#A855F7",
+          "highlight-bronze": "#D97706",
+          "highlight-silver": "#A1A1AA",
+          "highlight-gold": "#FBBF24",
+          "highlight-platinum": "#818CF8",
+        };
+        return colors[highlightClass] || "#888";
+      }
+
+      function getGlowStyle(glow) {
+        const glows = {
+          "tier-glow-orange":
+            "radial-gradient(ellipse at 50% 80%, rgba(234, 88, 12, 0.5) 0%, transparent 60%)",
+          "tier-glow-teal":
+            "radial-gradient(ellipse at 50% 80%, rgba(20, 184, 166, 0.4) 0%, transparent 60%)",
+          "tier-glow-starter":
+            "radial-gradient(ellipse at 50% 80%, rgba(148, 163, 184, 0.35) 0%, transparent 60%)",
+          "tier-glow-rising":
+            "radial-gradient(ellipse at 50% 80%, rgba(56, 189, 248, 0.4) 0%, transparent 60%)",
+          "tier-glow-builder":
+            "radial-gradient(ellipse at 50% 80%, rgba(168, 85, 247, 0.45) 0%, transparent 60%)",
+          "tier-glow-bronze":
+            "radial-gradient(ellipse at 50% 80%, rgba(217, 119, 6, 0.45) 0%, transparent 60%)",
+          "tier-glow-silver":
+            "radial-gradient(ellipse at 50% 80%, rgba(161, 161, 170, 0.4) 0%, transparent 60%)",
+          "tier-glow-gold":
+            "radial-gradient(ellipse at 50% 80%, rgba(251, 191, 36, 0.5) 0%, transparent 60%)",
+          "tier-glow-platinum":
+            "radial-gradient(ellipse at 50% 80%, rgba(129, 140, 248, 0.5) 0%, transparent 60%)",
+        };
+        return glows[glow] || "";
+      }
+
+      function getIconHtml(iconType, color) {
+        if (iconType === "checkmark") {
+          return `<div class="preview-icon" style="color: ${color}"><div class="preview-icon-checkmark"></div></div>`;
+        } else if (iconType === "pin") {
+          return `<div class="preview-icon" style="color: ${color}"><div class="preview-icon-pin"></div></div>`;
+        } else if (iconType === "trophy") {
+          return `<div class="preview-icon" style="color: ${color}"><div class="preview-icon-trophy"></div></div>`;
+        }
+        return "";
+      }
+
+      function initGrid() {
+        const grid = document.getElementById("screenshotGrid");
+        grid.innerHTML = screenshots
+          .map(
+            (s) => `
+                <div class="screenshot-card ${selectedScreenshots.has(s.id) ? "selected" : ""}" onclick="toggleSelect(${s.id})" data-id="${s.id}">
+                    <div class="screenshot-preview">
+                        <div class="preview-glow" style="background: ${getGlowStyle(s.glow)};"></div>
+                        <div class="preview-content">
+                            <div class="preview-badge" style="background: ${getBadgeColor(s.badgeClass)};">${s.badge}</div>
+                            ${s.type === "icon" ? getIconHtml(s.iconType, s.iconColor) : ""}
+                            ${s.type === "score" ? `<div class="preview-score">${s.score}<span class="percent">%</span></div>` : ""}
+                            <div class="preview-headline">${s.headline}<br><span style="color: ${getHighlightColor(s.highlightClass)}">${s.highlight}</span></div>
+                            <div class="preview-subtitle">${s.subtitle}</div>
+                            <div class="preview-phone" style="box-shadow: 0 0 25px ${getHighlightColor(s.highlightClass)}60, 0 0 0 2px #333;">
+                                <div class="preview-phone-screen">
+                                    <img src="images/screenshots/${s.image}" alt="${s.badge}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-info">
+                        <h4>${s.id}. ${s.badge}</h4>
+                        <p>${s.headline} ${s.highlight}</p>
+                        <div class="screenshot-actions">
+                            <button class="btn-small primary" onclick="event.stopPropagation(); openPreview(${s.id})">Open Full Size</button>
+                            <button class="btn-small secondary" onclick="event.stopPropagation(); exportSingle(${s.id})">Export PNG</button>
+                        </div>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function toggleSelect(id) {
+        if (selectedScreenshots.has(id)) {
+          selectedScreenshots.delete(id);
+        } else {
+          selectedScreenshots.add(id);
+        }
+        document
+          .querySelector(`[data-id="${id}"]`)
+          .classList.toggle("selected");
+      }
+
+      function createExportFrame(screenshot, platform) {
+        const isIOS = platform === "ios";
+        const androidClass = isIOS ? "" : " android";
+
+        let iconHtml = "";
+        if (screenshot.type === "icon") {
+          if (screenshot.iconType === "checkmark") {
+            iconHtml = `<div class="icon-export${androidClass}" style="color: ${screenshot.iconColor}"><div class="icon-checkmark-export"></div></div>`;
+          } else if (screenshot.iconType === "pin") {
+            iconHtml = `<div class="icon-export${androidClass}" style="color: ${screenshot.iconColor}"><div class="icon-pin-export"></div></div>`;
+          } else if (screenshot.iconType === "trophy") {
+            iconHtml = `<div class="icon-export${androidClass}" style="color: ${screenshot.iconColor}"><div class="icon-trophy-export"></div></div>`;
+          }
+        }
+
+        let scoreHtml = "";
+        if (screenshot.type === "score") {
+          scoreHtml = `<div class="score-export${androidClass}">${screenshot.score}<span class="percent">%</span></div>`;
+        }
+
+        return `
+                <div class="frame-export ${platform}" id="frame-${screenshot.id}">
+                    <div class="tier-glow-export ${screenshot.glow}"></div>
+                    <div class="content-export${androidClass}">
+                        <div class="tier-badge-export ${screenshot.badgeClass}${androidClass}">${screenshot.badge}</div>
+                        ${scoreHtml}
+                        ${iconHtml}
+                        <div class="headline-export${androidClass}">${screenshot.headline}<br><span class="${screenshot.highlightClass}">${screenshot.highlight}</span></div>
+                        <div class="subtitle-export${androidClass}">${screenshot.subtitle}</div>
+                        <div class="phone-export ${screenshot.phoneGlow}${androidClass}">
+                            <div class="phone-screen-export${androidClass}">
+                                <img src="images/screenshots/${screenshot.image}" alt="${screenshot.badge}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      async function exportScreenshot(screenshot, platform) {
+        const container = document.getElementById("exportContainer");
+        container.innerHTML = createExportFrame(screenshot, platform);
+        container.style.left = "0";
+
+        // Wait for images to load
+        const frame = document.getElementById(`frame-${screenshot.id}`);
+        const images = frame.querySelectorAll("img");
+        await Promise.all(
+          Array.from(images).map(
+            (img) =>
+              new Promise((resolve) => {
+                if (img.complete) resolve();
+                else {
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                }
+              }),
+          ),
+        );
+        await new Promise((resolve) => setTimeout(resolve, 200));
+
+        try {
+          const canvas = await html2canvas(frame, {
+            scale: 1,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#0a0a0f",
+            logging: false,
+          });
+
+          container.style.left = "-9999px";
+
+          // Download
+          const link = document.createElement("a");
+          link.download = `rally-${platform}-${screenshot.id}-${screenshot.badge.toLowerCase().replace(/\s+/g, "-")}.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        } catch (error) {
+          container.style.left = "-9999px";
+          console.error("Export error:", error);
+          alert(
+            "Export failed. Please run a local server:\n\n" +
+              "cd rallyapp-website && npx serve\n\n" +
+              "Then open http://localhost:3000/screenshot-export-dark-tier.html",
+          );
+          throw error;
+        }
+      }
+
+      // Open full-size preview in new window (for manual screenshot)
+      function openPreview(screenshotId) {
+        const platform = document.getElementById("platform").value;
+        const screenshot = screenshots.find((s) => s.id === screenshotId);
+        if (!screenshot) return;
+
+        // Get absolute URL for images
+        const baseUrl = window.location.href.substring(
+          0,
+          window.location.href.lastIndexOf("/") + 1,
+        );
+        const imageUrl = baseUrl + "images/screenshots/" + screenshot.image;
+
+        const html = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rally Screenshot ${screenshot.id} - ${screenshot.badge}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        .frame {
+            width: ${platform === "ios" ? "1290px" : "1242px"};
+            height: ${platform === "ios" ? "2796px" : "2208px"};
+            background: linear-gradient(180deg, #0a0a0f 0%, #18181b 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0.5;
+        }
+        .glow-orange { background: radial-gradient(ellipse at 50% 75%, rgba(234, 88, 12, 0.5) 0%, transparent 55%); }
+        .glow-teal { background: radial-gradient(ellipse at 50% 75%, rgba(20, 184, 166, 0.4) 0%, transparent 55%); }
+        .glow-starter { background: radial-gradient(ellipse at 50% 75%, rgba(148, 163, 184, 0.35) 0%, transparent 55%); }
+        .glow-rising { background: radial-gradient(ellipse at 50% 75%, rgba(56, 189, 248, 0.4) 0%, transparent 55%); }
+        .glow-builder { background: radial-gradient(ellipse at 50% 75%, rgba(168, 85, 247, 0.45) 0%, transparent 55%); }
+        .glow-bronze { background: radial-gradient(ellipse at 50% 75%, rgba(217, 119, 6, 0.45) 0%, transparent 55%); }
+        .glow-silver { background: radial-gradient(ellipse at 50% 75%, rgba(161, 161, 170, 0.4) 0%, transparent 55%); }
+        .glow-gold { background: radial-gradient(ellipse at 50% 75%, rgba(251, 191, 36, 0.5) 0%, transparent 55%); }
+        .glow-platinum { background: radial-gradient(ellipse at 50% 75%, rgba(129, 140, 248, 0.5) 0%, transparent 55%); }
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            padding: ${platform === "ios" ? "120px 80px" : "100px 70px"};
+        }
+        .badge {
+            padding: ${platform === "ios" ? "32px 80px" : "28px 70px"};
+            border-radius: 100px;
+            font-size: ${platform === "ios" ? "48px" : "42px"};
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: ${platform === "ios" ? "6px" : "5px"};
+            margin-bottom: ${platform === "ios" ? "32px" : "28px"};
+        }
+        .badge-orange { background: #f97316; color: white; }
+        .badge-teal { background: #14b8a6; color: white; }
+        .badge-starter { background: #94a3b8; color: #0f172a; }
+        .badge-rising { background: #38bdf8; color: #082f49; }
+        .badge-builder { background: #a855f7; color: #3b0764; }
+        .badge-bronze { background: #d97706; color: #451a03; }
+        .badge-silver { background: #a1a1aa; color: #27272a; }
+        .badge-gold { background: #fbbf24; color: #422006; }
+        .badge-platinum { background: #818cf8; color: #312e81; }
+        .score {
+            font-size: ${platform === "ios" ? "260px" : "220px"};
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .score .pct { font-size: ${platform === "ios" ? "140px" : "120px"}; opacity: 0.7; }
+        .icon-wrap {
+            width: ${platform === "ios" ? "200px" : "170px"};
+            height: ${platform === "ios" ? "200px" : "170px"};
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-checkmark {
+            width: 180px; height: 180px;
+            border: 16px solid currentColor;
+            border-radius: 50%;
+            position: relative;
+        }
+        .icon-checkmark::before {
+            content: "";
+            position: absolute;
+            top: 42%; left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 45px; height: 85px;
+            border-right: 16px solid currentColor;
+            border-bottom: 16px solid currentColor;
+        }
+        .icon-pin {
+            width: 120px; height: 160px;
+            background: currentColor;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+        }
+        .icon-pin::before {
+            content: "";
+            position: absolute;
+            top: 45px; left: 50%;
+            transform: translateX(-50%);
+            width: 45px; height: 45px;
+            background: #18181b;
+            border-radius: 50%;
+        }
+        .icon-trophy {
+            width: 150px; height: 130px;
+            background: currentColor;
+            border-radius: 0 0 75px 75px;
+            position: relative;
+        }
+        .icon-trophy::before {
+            content: "";
+            position: absolute;
+            top: 15px; left: -45px;
+            width: 45px; height: 75px;
+            border: 16px solid currentColor;
+            border-right: none;
+            border-radius: 45px 0 0 45px;
+            background: transparent;
+        }
+        .icon-trophy::after {
+            content: "";
+            position: absolute;
+            top: 15px; right: -45px;
+            width: 45px; height: 75px;
+            border: 16px solid currentColor;
+            border-left: none;
+            border-radius: 0 45px 45px 0;
+            background: transparent;
+        }
+        .headline {
+            font-size: ${platform === "ios" ? "120px" : "100px"};
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: ${platform === "ios" ? "32px" : "28px"};
+        }
+        .hl-orange { color: #f97316; }
+        .hl-teal { color: #14b8a6; }
+        .hl-starter { color: #94a3b8; }
+        .hl-rising { color: #38bdf8; }
+        .hl-builder { color: #a855f7; }
+        .hl-bronze { color: #d97706; }
+        .hl-silver { color: #a1a1aa; }
+        .hl-gold { color: #fbbf24; }
+        .hl-platinum { color: #818cf8; }
+        .subtitle {
+            font-size: ${platform === "ios" ? "56px" : "48px"};
+            color: #71717a;
+            text-align: center;
+            margin-bottom: auto;
+        }
+        .phone {
+            width: ${platform === "ios" ? "900px" : "870px"};
+            height: ${platform === "ios" ? "1953px" : "1549px"};
+            background: #000;
+            border-radius: ${platform === "ios" ? "130px" : "110px"};
+            padding: ${platform === "ios" ? "36px" : "32px"};
+            position: relative;
+        }
+        .phone::before {
+            content: "";
+            position: absolute;
+            top: 54px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 42px;
+            background: #000;
+            border-radius: 21px;
+            z-index: 10;
+            display: ${platform === "ios" ? "block" : "none"};
+        }
+        .phone-glow-orange { box-shadow: 0 0 240px rgba(234, 88, 12, 0.5), 0 0 0 8px #333; }
+        .phone-glow-teal { box-shadow: 0 0 240px rgba(20, 184, 166, 0.45), 0 0 0 8px #333; }
+        .phone-glow-starter { box-shadow: 0 0 200px rgba(148, 163, 184, 0.35), 0 0 0 8px #333; }
+        .phone-glow-rising { box-shadow: 0 0 240px rgba(56, 189, 248, 0.5), 0 0 0 8px #333; }
+        .phone-glow-builder { box-shadow: 0 0 240px rgba(168, 85, 247, 0.5), 0 0 0 8px #333; }
+        .phone-glow-bronze { box-shadow: 0 0 240px rgba(217, 119, 6, 0.5), 0 0 0 8px #333; }
+        .phone-glow-silver { box-shadow: 0 0 200px rgba(161, 161, 170, 0.4), 0 0 0 8px #333; }
+        .phone-glow-gold { box-shadow: 0 0 280px rgba(251, 191, 36, 0.55), 0 0 0 8px #333; }
+        .phone-glow-platinum { box-shadow: 0 0 280px rgba(129, 140, 248, 0.55), 0 0 0 8px #333; }
+        .screen {
+            width: 100%;
+            height: 100%;
+            border-radius: ${platform === "ios" ? "94px" : "78px"};
+            overflow: hidden;
+        }
+        .screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <div class="glow ${screenshot.glow.replace("tier-glow-", "glow-")}"></div>
+        <div class="content">
+            <div class="badge ${screenshot.badgeClass.replace("badge-", "badge-")}">${screenshot.badge}</div>
+            ${screenshot.type === "score" ? `<div class="score">${screenshot.score}<span class="pct">%</span></div>` : ""}
+            ${screenshot.type === "icon" ? `<div class="icon-wrap" style="color: ${screenshot.iconColor}"><div class="icon-${screenshot.iconType}"></div></div>` : ""}
+            <div class="headline">${screenshot.headline}<br><span class="${screenshot.highlightClass.replace("highlight-", "hl-")}">${screenshot.highlight}</span></div>
+            <div class="subtitle">${screenshot.subtitle}</div>
+            <div class="phone ${screenshot.phoneGlow.replace("glow-", "phone-glow-")}">
+                <div class="screen">
+                    <img src="${imageUrl}" alt="${screenshot.badge}">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+        const blob = new Blob([html], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      }
+
+      async function exportSingle(screenshotId) {
+        const platform = document.getElementById("platform").value;
+        const screenshot = screenshots.find((s) => s.id === screenshotId);
+        if (!screenshot) return;
+
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        progressBar.classList.add("active");
+        progressText.textContent = `Exporting: ${screenshot.badge}...`;
+
+        try {
+          await exportScreenshot(screenshot, platform);
+          progressBar.classList.remove("active");
+        } catch (error) {
+          progressBar.classList.remove("active");
+        }
+      }
+
+      async function exportAll() {
+        const platform = document.getElementById("platform").value;
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        progressBar.classList.add("active");
+
+        for (let i = 0; i < screenshots.length; i++) {
+          const s = screenshots[i];
+          progressText.textContent = `Exporting ${i + 1}/${screenshots.length}: ${s.badge}...`;
+          await exportScreenshot(s, platform);
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
+
+        progressBar.classList.remove("active");
+        alert("All screenshots exported!");
+      }
+
+      async function exportSelected() {
+        const platform = document.getElementById("platform").value;
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        const toExport = screenshots.filter((s) =>
+          selectedScreenshots.has(s.id),
+        );
+
+        if (toExport.length === 0) {
+          alert("Please select at least one screenshot");
+          return;
+        }
+
+        progressBar.classList.add("active");
+
+        for (let i = 0; i < toExport.length; i++) {
+          const s = toExport[i];
+          progressText.textContent = `Exporting ${i + 1}/${toExport.length}: ${s.badge}...`;
+          await exportScreenshot(s, platform);
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
+
+        progressBar.classList.remove("active");
+        alert(`${toExport.length} screenshots exported!`);
+      }
+
+      initGrid();
+    </script>
+  </body>
+</html>
