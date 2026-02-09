@@ -1,11 +1,15 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.mowwowlimited.rallyapp",
       "sha256_cert_fingerprints": [
-        "D9:1B:27:E2:39:8B:D3:17:BA:17:2B:3E:83:1F:88:1D:67:A1:0B:02:5D:01:13:9B:F8:82:0D:8E:2B:F0:58:AB"
+        "D9:1B:27:E2:39:8B:D3:17:BA:17:2B:3E:83:1F:88:1D:67:A1:0B:02:5D:01:13:9B:F8:82:0D:8E:2B:F0:58:AB",
+        "EB:7F:4E:C1:EF:48:C0:1D:F7:9C:DE:7F:BB:46:E4:20:AC:61:25:E0:85:E0:A3:CD:5F:3A:5F:53:F4:DB:A4:70"
       ]
     }
   }
