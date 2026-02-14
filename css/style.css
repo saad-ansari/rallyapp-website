@@ -129,6 +129,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -138,6 +139,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Full-page gradient mesh background - extends hero gradient across entire page */
@@ -331,11 +334,15 @@ h6 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-6);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 section {
   padding: var(--space-24) 0;
   position: relative;
+  overflow-x: clip;
+  width: 100%;
 }
 
 /* Section Dividers - Subtle gradient fade between sections */
@@ -753,10 +760,10 @@ section {
    ============================================ */
 .phone-carousel-container {
   position: relative;
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
   width: 100%;
   overflow: visible;
-  padding: var(--space-8) 0;
+  padding: var(--space-4) 0;
 }
 
 .phone-carousel {
@@ -991,81 +998,149 @@ section {
   }
 }
 
+/* ============================================
+   MOBILE CAROUSEL - Complete Rewrite
+   ============================================ */
 @media (max-width: 768px) {
   .phone-carousel-container {
     padding: var(--space-4) 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
   }
 
   .phone-carousel {
-    min-height: 400px;
-    gap: var(--space-2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    gap: var(--space-3);
     padding: 0 var(--space-4);
-    justify-content: flex-start;
-    width: max-content;
-    margin: 0 auto;
   }
 
+  /* Hide non-active phones on mobile */
   .carousel-phone {
-    opacity: 0.8;
+    display: none;
   }
 
-  .phone-frame-mini {
-    width: 120px;
-    height: 260px;
-    border-radius: 22px;
-    padding: 5px;
-  }
-
-  .carousel-phone.active .phone-frame-mini {
-    width: 150px;
-    height: 320px;
-    border-radius: 26px;
-  }
-
-  .phone-label {
-    font-size: var(--text-micro);
+  .carousel-phone.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     opacity: 1;
   }
 
-  /* Dots smaller on mobile */
+  /* Show prev/next as small side previews */
+  .carousel-phone.prev,
+  .carousel-phone.next {
+    display: flex;
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+
+  .carousel-phone.prev .phone-label,
+  .carousel-phone.next .phone-label {
+    display: none;
+  }
+
+  /* Phone sizing for mobile */
+  .phone-frame-mini {
+    width: 160px;
+    height: 340px;
+    border-radius: 28px;
+    padding: 6px;
+  }
+
+  .carousel-phone.active .phone-frame-mini {
+    width: 200px;
+    height: 420px;
+    border-radius: 32px;
+    padding: 8px;
+    box-shadow:
+      0 30px 60px -15px rgba(0, 0, 0, 0.35),
+      0 15px 30px -10px rgba(0, 0, 0, 0.2),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+  }
+
+  .carousel-phone.prev .phone-frame-mini,
+  .carousel-phone.next .phone-frame-mini {
+    width: 120px;
+    height: 260px;
+    filter: brightness(0.6) blur(1px);
+  }
+
+  .phone-notch-mini {
+    width: 65px;
+    height: 18px;
+    top: 8px;
+  }
+
+  .phone-screen-mini {
+    border-radius: 24px;
+  }
+
+  .phone-label {
+    font-size: var(--text-caption);
+    margin-top: var(--space-3);
+  }
+
+  /* Dots below the carousel */
   .carousel-dots {
-    margin-top: var(--space-4);
+    margin-top: var(--space-5);
+    gap: var(--space-2);
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
   }
 
   .carousel-dot.active {
-    width: 20px;
+    width: 24px;
   }
 }
 
 @media (max-width: 480px) {
+  .phone-carousel-container {
+    padding: var(--space-3) 0;
+  }
+
   .phone-carousel {
-    min-height: 340px;
-    gap: var(--space-1);
+    gap: var(--space-2);
+    padding: 0 var(--space-2);
+  }
+
+  /* Hide side phones on small screens for cleaner look */
+  .carousel-phone.prev,
+  .carousel-phone.next {
+    display: none;
   }
 
   .phone-frame-mini {
-    width: 100px;
-    height: 220px;
-    border-radius: 18px;
-    padding: 4px;
+    width: 140px;
+    height: 300px;
   }
 
   .carousel-phone.active .phone-frame-mini {
-    width: 130px;
-    height: 280px;
-    border-radius: 22px;
+    width: 220px;
+    height: 460px;
+    border-radius: 36px;
   }
 
   .phone-notch-mini {
-    width: 50px;
-    height: 14px;
-    border-radius: 0 0 10px 10px;
+    width: 70px;
+    height: 20px;
+    top: 10px;
   }
 
   .phone-screen-mini {
-    border-radius: 15px;
+    border-radius: 28px;
+  }
+
+  .phone-label {
+    margin-top: var(--space-2);
+  }
+
+  .carousel-dots {
+    margin-top: var(--space-4);
   }
 }
 
@@ -1212,6 +1287,7 @@ section {
 /* Floating Card Animation */
 .floating-card {
   /* Static - no floating animation for consistent spacing */
+  position: relative;
 }
 
 .floating-card::before {
@@ -2921,6 +2997,21 @@ section {
     min-height: auto;
   }
 
+  /* Reduce spacing on mobile hero elements */
+  .hero-preview {
+    margin-top: var(--space-1);
+    margin-bottom: 0;
+  }
+
+  .hero-preview .score-card {
+    transform: scale(0.9);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .download-buttons {
+    margin-top: var(--space-4);
+  }
+
   .hero-cta {
     flex-direction: column;
     align-items: center;
@@ -3096,3 +3187,820 @@ section {
     padding: var(--space-4) var(--space-6);
   }
 }
+
+/* ============================================
+   NAVIGATION HEADER
+   ============================================ */
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--space-4) 0;
+  background: rgba(250, 250, 249, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-header.visible {
+  transform: translateY(0);
+  opacity: 1;
+  border-bottom-color: var(--color-border-subtle);
+}
+
+.nav-header.scrolled {
+  background: rgba(250, 250, 249, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+}
+
+.nav-logo-text {
+  font-size: var(--text-headline);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.nav-link {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-subtle);
+}
+
+.nav-link:hover::after {
+  width: 20px;
+}
+
+.nav-link.active {
+  color: var(--color-primary);
+}
+
+.nav-link.active::after {
+  width: 20px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.nav-cta:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-cta svg {
+  transition: transform var(--transition-fast);
+}
+
+.nav-cta:hover svg {
+  transform: translateY(2px);
+}
+
+.nav-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: all var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    padding: var(--space-4);
+    background: rgba(250, 250, 249, 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .nav-mobile-toggle {
+    display: flex;
+  }
+
+  .nav-mobile-toggle.open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-mobile-toggle.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-mobile-toggle.open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+/* ============================================
+   CURSOR GLOW EFFECT
+   ============================================ */
+.cursor-glow {
+  position: fixed;
+  width: min(400px, 80vw);
+  height: min(400px, 80vw);
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(234, 88, 12, 0.08) 0%,
+    rgba(234, 88, 12, 0.02) 40%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+
+.cursor-glow.visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* ============================================
+   MAGNETIC BUTTON EFFECT
+   ============================================ */
+.magnetic-btn {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.magnetic-btn span,
+.magnetic-btn svg {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   SOCIAL PROOF SECTION
+   ============================================ */
+.social-proof-section {
+  padding: var(--space-20) 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(234, 88, 12, 0.03) 50%,
+    transparent 100%
+  );
+}
+
+.social-proof-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-16);
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-8);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  transition: all var(--transition-slow);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  border-color: var(--color-primary-soft);
+}
+
+.stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--color-primary-muted), var(--color-bg-subtle));
+  border-radius: var(--radius-lg);
+  color: var(--color-primary);
+}
+
+.stat-number {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.stat-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.stat-rating .stat-number {
+  margin-bottom: 0;
+}
+
+.star-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  font-size: 1.25rem;
+  color: var(--color-border-default);
+}
+
+.star.filled {
+  color: var(--tier-gold);
+}
+
+.stat-label {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 900px) {
+  .social-proof-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .social-proof-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: var(--space-6);
+  }
+}
+
+/* ============================================
+   TESTIMONIALS CAROUSEL
+   ============================================ */
+.testimonials-wrapper {
+  overflow: hidden;
+  position: relative;
+  padding: var(--space-4) 0;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.testimonials-wrapper::before,
+.testimonials-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.testimonials-wrapper::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-bg-base), transparent);
+}
+
+.testimonials-wrapper::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--color-bg-base), transparent);
+}
+
+.testimonials-track {
+  display: flex;
+  gap: var(--space-6);
+  animation: scroll-testimonials 30s linear infinite;
+  width: max-content;
+}
+
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-testimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-card {
+  flex-shrink: 0;
+  width: 350px;
+  max-width: calc(100vw - 3rem);
+  padding: var(--space-6);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  transition: all var(--transition-base);
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    width: 300px;
+    padding: var(--space-4);
+  }
+}
+
+.testimonial-card:hover {
+  border-color: var(--color-primary-soft);
+  box-shadow: var(--shadow-lg);
+}
+
+.testimonial-content {
+  margin-bottom: var(--space-5);
+}
+
+.testimonial-content p {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.author-tier {
+  font-size: var(--text-caption);
+  font-weight: 500;
+}
+
+.author-tier.tier-gold {
+  color: var(--tier-gold);
+}
+
+.author-tier.tier-platinum {
+  color: var(--tier-platinum);
+}
+
+.author-tier.tier-silver {
+  color: var(--tier-silver);
+}
+
+/* ============================================
+   ENHANCED HERO PARALLAX ELEMENTS
+   ============================================ */
+.hero {
+  padding-top: var(--space-24);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Floating decorative elements */
+.hero-float-element {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.6;
+  will-change: transform;
+}
+
+.hero-float-element.circle-1 {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary-muted), transparent);
+  border-radius: 50%;
+  top: 20%;
+  left: 5%;
+}
+
+.hero-float-element.circle-2 {
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--color-primary-soft);
+  border-radius: 50%;
+  top: 60%;
+  right: 10%;
+}
+
+.hero-float-element.square-1 {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--orb-blue), transparent);
+  border-radius: var(--radius-lg);
+  transform: rotate(45deg);
+  bottom: 30%;
+  left: 10%;
+}
+
+/* ============================================
+   ENHANCED PHONE CAROUSEL 3D
+   ============================================ */
+.phone-carousel-container {
+  perspective: 2000px;
+}
+
+.carousel-phone {
+  transform-style: preserve-3d;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-phone:hover {
+  z-index: 20;
+}
+
+.carousel-phone:not(.active):hover .phone-frame-mini {
+  transform: scale(0.95) rotateY(0deg) translateZ(30px);
+}
+
+/* Phone glow effect */
+.phone-frame-mini::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(234, 88, 12, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.carousel-phone.active .phone-frame-mini::after {
+  opacity: 1;
+}
+
+/* ============================================
+   SECTION REVEAL ANIMATIONS
+   ============================================ */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+/* ============================================
+   BUTTON PRESS ANIMATION
+   ============================================ */
+.store-button,
+.btn-primary,
+.nav-cta {
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.15s ease;
+}
+
+.store-button:active,
+.btn-primary:active,
+.nav-cta:active {
+  transform: scale(0.95) translateY(0);
+}
+
+/* ============================================
+   CONFETTI BURST ON HOVER (CSS-only)
+   ============================================ */
+.confetti-trigger {
+  position: relative;
+  overflow: visible;
+}
+
+.confetti-trigger::before,
+.confetti-trigger::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+/* ============================================
+   SMOOTH SCROLL OFFSET FOR FIXED NAV
+   ============================================ */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* ============================================
+   TEXT SHINE EFFECT
+   ============================================ */
+.text-shine {
+  background: linear-gradient(
+    90deg,
+    var(--color-text-primary) 0%,
+    var(--color-text-primary) 40%,
+    var(--color-primary) 50%,
+    var(--color-text-primary) 60%,
+    var(--color-text-primary) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% {
+    background-position: 200% center;
+  }
+  50% {
+    background-position: -200% center;
+  }
+}
+
+/* ============================================
+   ENHANCED FOCUS STATES
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   LINK HOVER ANIMATION
+   ============================================ */
+.link-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   PULSE ANIMATION FOR NOTIFICATION DOTS
+   ============================================ */
+.pulse-dot {
+  position: relative;
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   CARD LIFT EFFECT
+   ============================================ */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ============================================
+   GRADIENT BORDER EFFECT
+   ============================================ */
+.gradient-border {
+  position: relative;
+  background: var(--color-bg-elevated);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-lighter));
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   LOADING SHIMMER EFFECT
+   ============================================ */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: shimmer-slide 2s infinite;
+}
+
+@keyframes shimmer-slide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+

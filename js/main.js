@@ -83,13 +83,23 @@
 
         e.preventDefault();
 
-        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+        // Account for fixed nav header
+        const navHeader = document.querySelector('.nav-header');
+        const headerHeight = navHeader?.offsetHeight || 80;
         const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
 
         window.scrollTo({
           top: targetPosition,
           behavior: 'smooth'
         });
+
+        // Close mobile menu if open
+        const mobileToggle = document.querySelector('.nav-mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (mobileToggle && navLinks) {
+          mobileToggle.classList.remove('open');
+          navLinks.classList.remove('open');
+        }
       });
     });
   };
@@ -392,12 +402,20 @@
     // Update active state with smooth transition
     const updateCarousel = (newIndex) => {
       currentIndex = newIndex;
+      const totalPhones = phones.length;
 
       phones.forEach((phone, index) => {
+        // Remove all position classes
+        phone.classList.remove('active', 'prev', 'next');
+        
         if (index === currentIndex) {
           phone.classList.add('active');
-        } else {
-          phone.classList.remove('active');
+        } else if (index === (currentIndex - 1 + totalPhones) % totalPhones) {
+          // Previous phone (with wrap-around)
+          phone.classList.add('prev');
+        } else if (index === (currentIndex + 1) % totalPhones) {
+          // Next phone (with wrap-around)
+          phone.classList.add('next');
         }
       });
 
