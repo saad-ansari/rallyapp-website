@@ -123,14 +123,14 @@
       );
     }
 
-    // Waitlist form
-    const waitlistWrapper = document.querySelector(
-      ".hero .waitlist-form-wrapper",
+    // Download buttons
+    const downloadButtons = document.querySelector(
+      ".hero .download-buttons",
     );
-    if (waitlistWrapper) {
-      gsap.set(waitlistWrapper, { opacity: 0, y: 40, scale: 0.95 });
+    if (downloadButtons) {
+      gsap.set(downloadButtons, { opacity: 0, y: 40, scale: 0.95 });
       tl.to(
-        waitlistWrapper,
+        downloadButtons,
         {
           opacity: 1,
           y: 0,

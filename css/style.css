@@ -2998,3 +2998,101 @@ section {
     align-items: center;
   }
 }
+
+/* ============================================
+   DOWNLOAD BUTTONS (App Store / Google Play)
+   ============================================ */
+.download-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+
+.download-buttons-cta {
+  margin-top: var(--space-8);
+}
+
+.store-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-text-primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  color: #ffffff;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  min-width: 180px;
+}
+
+.store-button:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.store-button:active {
+  transform: translateY(0);
+}
+
+.store-button svg {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.store-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.store-label {
+  font-size: var(--text-micro);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.store-name {
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+/* CTA Section - Make buttons extra prominent */
+.download-buttons-cta .store-button {
+  padding: var(--space-4) var(--space-8);
+  min-width: 200px;
+  box-shadow: var(--shadow-lg);
+}
+
+.download-buttons-cta .store-button svg {
+  width: 36px;
+  height: 36px;
+}
+
+.download-buttons-cta .store-name {
+  font-size: var(--text-headline);
+}
+
+@media (max-width: 480px) {
+  .download-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .store-button {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  
+  .download-buttons-cta .store-button {
+    padding: var(--space-4) var(--space-6);
+  }
+}

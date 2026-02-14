@@ -216,12 +216,12 @@
 
   const initFloatingCta = () => {
     const floatingCta = document.getElementById("floating-cta");
-    const heroWaitlistForm = document.querySelector("#waitlist-form-hero");
+    const heroDownloadButtons = document.querySelector(".hero .download-buttons");
 
-    if (!floatingCta || !heroWaitlistForm) return;
+    if (!floatingCta || !heroDownloadButtons) return;
 
     ScrollTrigger.create({
-      trigger: heroWaitlistForm,
+      trigger: heroDownloadButtons,
       start: "bottom top",
       onEnter: () => floatingCta.classList.add("visible"),
       onLeaveBack: () => floatingCta.classList.remove("visible"),
