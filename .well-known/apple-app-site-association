@@ -6,6 +6,9 @@
         "appID": "8BL657JLQN.com.mowwowlimited.rallyapp",
         "paths": [
           "NOT /auth/reset-password*",
+          "NOT /auth/confirm*",
+          "NOT /auth/callback*",
+          "NOT /verify/*",
           "*"
         ]
       }

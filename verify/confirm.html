@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Confirmed - Rally</title>
+    <meta
+      name="description"
+      content="Your email has been confirmed. Welcome to Rally!"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-bg: #0a0a0a;
+        --color-surface: #141414;
+        --color-border: #262626;
+        --color-text: #fafafa;
+        --color-text-secondary: #a3a3a3;
+        --color-brand: #e86c3a;
+        --color-brand-light: #f97316;
+        --color-success: #22c55e;
+        --color-error: #ef4444;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .container {
+        max-width: 420px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        margin: 0 auto 32px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+      }
+
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        padding: 40px 32px;
+        margin-bottom: 24px;
+      }
+
+      .icon-success {
+        width: 64px;
+        height: 64px;
+        background: rgba(34, 197, 94, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+      }
+
+      .icon-success svg {
+        width: 32px;
+        height: 32px;
+        color: var(--color-success);
+      }
+
+      .icon-loading {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--color-border);
+        border-top-color: var(--color-brand);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .icon-error {
+        width: 64px;
+        height: 64px;
+        background: rgba(239, 68, 68, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+      }
+
+      .icon-error svg {
+        width: 32px;
+        height: 32px;
+        color: var(--color-error);
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      p {
+        color: var(--color-text-secondary);
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 32px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--color-brand),
+          var(--color-brand-light)
+        );
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(232, 108, 58, 0.3);
+      }
+
+      .btn-secondary {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+      }
+
+      .btn-secondary:hover {
+        background: var(--color-border);
+      }
+
+      .store-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .store-btn {
+        flex: 1;
+        padding: 12px 16px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        color: var(--color-text);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .store-btn:hover {
+        background: var(--color-border);
+      }
+
+      .footer {
+        color: var(--color-text-secondary);
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: var(--color-brand);
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* State visibility */
+      .state {
+        display: none;
+      }
+      .state.active {
+        display: block;
+      }
+
+      /* Manual open button - initially hidden */
+      .manual-open-container {
+        display: none;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .manual-open-container.visible {
+        display: block;
+      }
+
+      .manual-open-hint {
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo"><img src="/images/rally-logo.png" alt="Rally" /></div>
+
+      <div class="card">
+        <!-- Loading State -->
+        <div id="state-loading" class="state active">
+          <div class="icon-loading">
+            <div class="spinner"></div>
+          </div>
+          <h1>Confirming your email...</h1>
+          <p>Please wait while we verify your email address.</p>
+        </div>
+
+        <!-- Success State -->
+        <div id="state-success" class="state">
+          <div class="icon-success">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h1>Email Confirmed!</h1>
+          <p>
+            Your email has been verified. You can now sign in to Rally and start
+            building your reliability score.
+          </p>
+          <a href="#" class="btn btn-primary" id="open-app-btn">
+            Open Rally App
+          </a>
+
+          <!-- Manual fallback for when auto-redirect doesn't work -->
+          <div id="manual-open" class="manual-open-container">
+            <p class="manual-open-hint">
+              Didn't open automatically? Tap the button above or download the
+              app:
+            </p>
+          </div>
+
+          <div class="store-buttons">
+            <a
+              href="https://apps.apple.com/app/rally/id6758682708"
+              class="store-btn"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
+                />
+              </svg>
+              App Store
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.mowwowlimited.rallyapp"
+              class="store-btn"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"
+                />
+              </svg>
+              Play Store
+            </a>
+          </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="state-error" class="state">
+          <div class="icon-error">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <h1>Verification Failed</h1>
+          <p id="error-message">
+            The verification link may have expired or is invalid. Please try
+            signing up again.
+          </p>
+          <a href="/" class="btn btn-secondary"> Back to Home </a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Need help? <a href="mailto:support@rallyapp.me">Contact Support</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      // Supabase configuration
+      const SUPABASE_URL = "https://luycgijiyhemhtjiggze.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1eWNnaWppeWhlbWh0amlnZ3plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxNjU3MTQsImV4cCI6MjA3OTc0MTcxNH0.P8JgjE0Ewt3DKoHm1txZgmvDnhzJKi5addToq5Zatsw";
+
+      // Initialize Supabase client
+      const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY,
+      );
+
+      // Store session data for passing to app
+      let sessionData = null;
+
+      // State management
+      function showState(state) {
+        document
+          .querySelectorAll(".state")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById(`state-${state}`).classList.add("active");
+      }
+
+      // Parse URL parameters
+      function getUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(
+          window.location.hash.substring(1),
+        );
+
+        return {
+          // Support both token_hash (from our custom email) and token (legacy)
+          token_hash:
+            params.get("token_hash") ||
+            params.get("token") ||
+            hashParams.get("access_token"),
+          type: params.get("type") || hashParams.get("type"),
+          access_token: hashParams.get("access_token"),
+          refresh_token: hashParams.get("refresh_token"),
+          error: params.get("error") || hashParams.get("error"),
+          error_description:
+            params.get("error_description") ||
+            hashParams.get("error_description"),
+        };
+      }
+
+      // Main verification logic
+      async function handleEmailConfirmation() {
+        const params = getUrlParams();
+
+        // Check for errors from Supabase
+        if (params.error) {
+          document.getElementById("error-message").textContent =
+            params.error_description ||
+            "An error occurred during verification.";
+          showState("error");
+          return;
+        }
+
+        // If we have access_token and refresh_token, the verification was successful
+        if (params.access_token && params.refresh_token) {
+          try {
+            // Set the session in Supabase
+            const { error } = await supabaseClient.auth.setSession({
+              access_token: params.access_token,
+              refresh_token: params.refresh_token,
+            });
+
+            if (error) throw error;
+
+            // Store session data for passing to app
+            sessionData = {
+              access_token: params.access_token,
+              refresh_token: params.refresh_token,
+            };
+
+            showState("success");
+
+            // Show the manual open button immediately (no auto-redirect for /verify path)
+            // This ensures the verification completes before any app opening attempt
+            setTimeout(() => {
+              document.getElementById("manual-open").classList.add("visible");
+            }, 1000);
+          } catch (error) {
+            console.error("Session error:", error);
+            // Still show success - the email was confirmed, user just needs to sign in manually
+            showState("success");
+          }
+          return;
+        }
+
+        // If we have a token_hash but no access_token, we need to verify it
+        if (params.token_hash && params.type === "signup") {
+          try {
+            const { data, error } = await supabaseClient.auth.verifyOtp({
+              token_hash: params.token_hash,
+              type: "signup",
+            });
+
+            if (error) throw error;
+
+            // Store session data for passing to app
+            if (data.session) {
+              sessionData = {
+                access_token: data.session.access_token,
+                refresh_token: data.session.refresh_token,
+              };
+            }
+
+            showState("success");
+
+            // Show the manual open button (no auto-redirect for /verify path)
+            // This ensures the verification completes before any app opening attempt
+            setTimeout(() => {
+              document.getElementById("manual-open").classList.add("visible");
+            }, 1000);
+          } catch (error) {
+            console.error("Verification error:", error);
+            document.getElementById("error-message").textContent =
+              error.message ||
+              "The verification link may have expired. Please try signing up again.";
+            showState("error");
+          }
+          return;
+        }
+
+        // No valid parameters found
+        document.getElementById("error-message").textContent =
+          "Invalid verification link. Please check your email and try again.";
+        showState("error");
+      }
+
+      // Open app button handler - uses custom URL scheme (not Universal Links)
+      // This ensures the app opens AFTER the verification is complete
+      document
+        .getElementById("open-app-btn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // Use custom URL scheme to open the app
+          // Pass session tokens if available so user is automatically logged in
+          if (
+            sessionData &&
+            sessionData.access_token &&
+            sessionData.refresh_token
+          ) {
+            window.location.href = `rally://auth/callback#access_token=${sessionData.access_token}&refresh_token=${sessionData.refresh_token}&type=signup`;
+          } else {
+            // Fallback - just open the app without tokens
+            window.location.href = "rally://";
+          }
+        });
+
+      // Run on page load
+      handleEmailConfirmation();
+    </script>
+  </body>
+</html>
