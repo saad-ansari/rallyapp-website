@@ -85,7 +85,7 @@ Know who's reliable. Build better squads. 🏁
 - "Friendship is knowing their reliability score before asking them to drive" [image]
 
 **Wednesday:** Product update
-- "New feature: City leaderboards. Prove your city is the most reliable 🏙️"
+- "New feature: City leaderboards. See which city shows up the most 🏙️"
 
 **Friday:** Engagement bait
 - "Your friend cancels 5 minutes before. What's your response? Wrong answers only."

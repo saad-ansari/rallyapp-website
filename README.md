@@ -1,6 +1,6 @@
 # Rally Website
 
-Landing page and marketing website for [Rally](https://rallyapp.me) - the social accountability app that tracks who shows up.
+Landing page and marketing website for [Rally](https://rallyapp.me) - No Maybes. No Flakes. Plans that actually happen.
 
 ## Overview
 

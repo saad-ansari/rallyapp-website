@@ -73,7 +73,7 @@
   - End with: "Sound familiar?"
 
 - [ ] **Solution transition**
-  - Add bridge: "What if you could prove you're reliable—without saying a word?"
+  - Add bridge: "What if there were no more maybes? No more flakes?"
 
 - [ ] **Tier consequences**
   - Explain what happens at each tier

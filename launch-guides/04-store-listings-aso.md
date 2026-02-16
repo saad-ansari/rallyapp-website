@@ -170,7 +170,7 @@ Rally tracks who actually shows up. Create events with your squad, earn your Rel
 ```
 HOW MANY TIMES HAS A FRIEND SAID "I'LL BE THERE" AND NEVER SHOWED UP?
 
-Rally tracks who actually shows up to plans. No more flaky friends, no more empty promises. Build your Reliability Score, prove you're someone people can count on, and make showing up matter.
+Rally tracks who actually shows up to plans. No more maybes. No more flakes. Build your Reliability Score, be someone people can count on, and make showing up matter.
 
 CORE FEATURES
 
@@ -178,7 +178,7 @@ CORE FEATURES
 Create events with RSVP thresholds (e.g., "Coffee if 3+ people commit"). Set location, time, and stakes. Your squad sees who's in.
 
 ✅ CHECK-IN SYSTEM
-Prove you showed up. Check in when you arrive (location-verified). Late? Your score takes a hit. No-shows? Even worse.
+Show up. Get credit. Check in when you arrive (location-verified). Late? Your score takes a hit. No-shows? Even worse.
 
 📊 RELIABILITY SCORES
 Earn tiers from Starter → Bronze → Silver → Gold → Platinum. Your score follows you everywhere. It's your social credit score.
@@ -305,15 +305,15 @@ reliability,squad,planner,friends,events,accountability,group,social,coordinatio
 
 **Screenshot 3: Check-In**
 - Phone showing "Check In" button + location verification
-- Caption: "Prove you showed up. Earn your points."
+- Caption: "Show up. Get credit. Earn your points."
 
 **Screenshot 4: Reliability Score**
 - Phone showing Profile screen with Platinum tier badge
-- Caption: "Your score follows you. Bronze to Platinum - prove you're reliable."
+- Caption: "Your score follows you. Bronze to Platinum. Climb the ranks."
 
 **Screenshot 5: Leaderboards**
 - Phone showing City Leaderboard with names + scores
-- Caption: "Compete with your city. Prove you're the most reliable."
+- Caption: "Compete with your city. Climb the leaderboard."
 
 **How to create:**
 - Use iOS Simulator or real device → Take screenshots
